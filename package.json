@@ -1,7 +1,24 @@
 {
-  "name" : "Spaceship",
-  "version" : "0.0.1",
-  "dependencies" : {
-    "express" : "3.x"
-  }
+  "name": "Spaceship",
+  "version": "0.0.1",
+  "dependencies": {
+    "express": "^3.19.2"
+  },
+  "description": "A spaceship distributed game (to change)",
+  "main": "main.js",
+  "devDependencies": {},
+  "scripts": {
+    "start": "node ./main.js",
+    "test": "echo \"todo\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yoann-dufresne/Spaceship_node.git"
+  },
+  "author": "TODO",
+  "license": "GPLv3",
+  "bugs": {
+    "url": "https://github.com/yoann-dufresne/Spaceship_node/issues"
+  },
+  "homepage": "https://github.com/yoann-dufresne/Spaceship_node"
 }
