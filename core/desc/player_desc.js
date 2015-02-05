@@ -1,0 +1,16 @@
+
+
+PLAYER = {
+    
+    'Engineer' : {
+        
+    },
+    
+    'Firefighter' : {
+        
+    },
+    
+    'Marine' : {
+        
+    }
+}

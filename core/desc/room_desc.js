@@ -1,3 +1,5 @@
+DEFAULT_STATUS = 'enabled'
+
 ROOM = {
     
     'Life_Support' : {
@@ -11,7 +13,7 @@ ROOM = {
         }
     },
     
-    'Engine_room' : {
+    'Engine_Room' : {
         'status' : {
             'enabled' : {
                 'speed' : 0.5
