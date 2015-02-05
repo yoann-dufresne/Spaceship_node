@@ -1,7 +1,11 @@
 module.exports.Event = Event
 module.exports.BasicEvent = BasicEvent
 
-function Event () {}
+function Event (id, type) {
+
+    this.init(id, type);
+}
+
 Event.prototype = {
     
     init : function (id, type) {
@@ -28,33 +32,41 @@ Event.prototype = {
         this.active = false
     },
     
+    // toJson() doesn't not return json string, but jsonable object.
     toJson : function () {
         var json = {
+            'id' : this.id,
             'type' : this.type,
+            'oxygen' : this.oxygen,
+            'speed' : this.speed,
+            'effect' : this.effect
         }
         return json
     }
     
 }
 
-
 function BasicEvent (id, type, room_id) {
-    this.init(id, type)
-    this.room_id = room_id
 
+    // call the Event constructor. I think is cleaner than call the init() method.
+    Event.call(this, id, type);
+
+    this.room_id = room_id
 }
 
-BasicEvent.prototype = Event.prototype
+BasicEvent.prototype = Object.create(Event.prototype);
+// if we assign directly Event.prototype, every modifications done to BasicEvent.prototype
+//   are propagated to Event. So, first copy it. 
+
 BasicEvent.prototype.toJson = function () {
-    var json = {
-        'id' : this.id,
-        'type' : this.type,
-        'room_id' : this.room_id,
-        'oxygen' : this.oxygen,
-        'speed' : this.speed,
-        'effect' : this.effect
-    }
-    return json
+
+    // call the super toJson method
+    var json = Event.prototype.toJson.call(this);
+ 
+    // extend it
+    json.room_id = this.room_id;
+
+    return json;
 }
 
 BasicEvent.prototype.applyEffect = function (spaceship) {
