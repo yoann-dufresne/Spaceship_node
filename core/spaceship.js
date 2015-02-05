@@ -10,6 +10,11 @@ function Spaceship() {
 
 Spaceship.prototype = {
     
+    // default delay between each update() calls
+    updateIntervalDelay : 1000,
+    // Identify the interval in order to stop it when stop() is called
+    updateIntervalID : undefined,
+
     //remet le vaisseau a neuf mais ne modifie pas les salles/joueurs
     reset : function () {
         console.log( "> reset spaceship" )
@@ -24,7 +29,6 @@ Spaceship.prototype = {
         this.reset()
         this.room = []
         this.player = []
-        this.update()
     },
     
     addRoom : function (type) {
@@ -81,17 +85,24 @@ Spaceship.prototype = {
                 this.status = 'victory'
             }
         }
-        
-        setTimeout(function(){self.update()}, 1000)
     },
 
+    // stop the interval that calls update()
     stop : function () {
+        if (this.updateIntervalID !== undefined){
+            clearInterval(this.updateIntervalID);
+        }
         this.status = 'stoped'
         return 'game paused'
     },
     
+    // start the interval that calls update()
     start : function () {
+        var that = this;
         this.status = 'active'
+        this.updateIntervalID = setInterval(
+            function () { that.update() }, this.updateIntervalDelay
+        );
         return 'game start'
     },
     
