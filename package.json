@@ -2,14 +2,15 @@
   "name": "Spaceship",
   "version": "0.0.1",
   "dependencies": {
-    "express": "^3.19.2"
+    "express": "^3.19.2",
+    "nodeunit": "^0.9.0"
   },
   "description": "A spaceship distributed game (to change)",
   "main": "main.js",
   "devDependencies": {},
   "scripts": {
     "start": "node ./main.js",
-    "test": "echo \"todo\""
+    "test": "node_modules/nodeunit/bin/nodeunit core/test/"
   },
   "repository": {
     "type": "git",
