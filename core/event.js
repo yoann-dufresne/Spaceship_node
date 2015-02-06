@@ -70,7 +70,9 @@ BasicEvent.prototype.toJson = function () {
 }
 
 BasicEvent.prototype.applyEffect = function (spaceship) {
-    spaceship.room[this.room_id].changeStatus('disabled')
+    if (this.active){
+        spaceship.room[this.room_id].changeStatus('disabled');
+    }
 }
 
 BasicEvent.prototype.solve = function (spaceship, player_id) {
