@@ -3,14 +3,6 @@ var eventModule = require('../event');
 var spec = require('../spec');
 var spaceship = require('../spaceship');
 
-
-// exports.testFoo = function(test) {
-//  test.ok(true, "this tets should pass");
-//  test.ok(true, "this tets should pass");
-//  //test.ok(true, "this tets should pass");
-//  test.done();
-// }
-
 module.exports.Event = {
     
     ctor: function (test){
