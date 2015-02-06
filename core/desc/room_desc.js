@@ -29,7 +29,6 @@ ROOM = {
                 'speed' : 0.5
             },
             'disabled' : {
-                'oxygen' : -1
             }
         }
     },
@@ -49,7 +48,7 @@ ROOM = {
             'enabled' : {
             },
             'disabled' : {
-                'effect' : ['randomFaillure']
+                'effect' : ['randomFailure']
             }
         }
     },
