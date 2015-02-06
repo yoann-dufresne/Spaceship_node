@@ -1,14 +1,9 @@
-var express = require('express');
-var fs = require('fs');
-
-//test include desc file
-eval(fs.readFileSync('core/desc/room_desc.js')+'');
-eval(fs.readFileSync('core/desc/player_desc.js')+'');
-eval(fs.readFileSync('core/desc/event_desc.js')+'');
+var express = require('express'),
+    fs = require('fs');
 
 //include js object
-var s = require('./core/spaceship')
-var e = require('./core/event')
+var s = require('./core/spaceship'),
+    e = require('./core/event');
 
 var spaceship = new s.Spaceship()
 

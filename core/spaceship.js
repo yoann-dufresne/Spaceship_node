@@ -1,11 +1,11 @@
-module.exports.Spaceship = Spaceship
+module.exports.Spaceship = Spaceship;
 
-var r = require('./room')
-var p = require('./player') 
+var r = require('./room'),
+    p = require('./player');
 
 function Spaceship() {
-    console.log( "--------new spaceship---------" )
-    this.init()
+    console.log( "--------new spaceship---------" );
+    this.init();
 }
 
 Spaceship.prototype = {
@@ -29,25 +29,25 @@ Spaceship.prototype = {
     },
     
     init : function () {
-        console.log( "> init spaceship" )
-        this.reset()
-        this.room = []
-        this.player = []
+        console.log( "> init spaceship" );
+        this.reset();
+        this.room = [];
+        this.player = [];
     },
     
     addRoom : function (type) {
-        var room = new r.Room(type)
-        this.room.push(room)
+        var room = new r.Room(type);
+        this.room.push(room);
     }, 
     
     addPlayer : function (type) {
-        var player = new p.Player(type)
-        this.player.push(player)
+        var player = new p.Player(type);
+        this.player.push(player);
     }, 
     
     addEvent : function (event) {
-        event.applyEffect(this)
-        this.event.push(event)
+        event.applyEffect(this);
+        this.event.push(event);
     }, 
     
     update : function () {
@@ -81,15 +81,15 @@ Spaceship.prototype = {
             
             //remove solved event from event list
             for (var i = this.event.length-1 ; i>=0; i -= 1) {
-                if (!this.event[i].active) this.event.splice(i, 1)
+                if (!this.event[i].active) this.event.splice(i, 1);
             }     
             
             // the order is important and might be discuted
             if (this.oxygen < 0){
-                this.status = 'gameOver'
+                this.status = 'gameOver';
             }
             else if (this.time_left < 0){
-                this.status = 'victory'
+                this.status = 'victory';
             }
         }
     },
@@ -99,28 +99,28 @@ Spaceship.prototype = {
         if (this.updateIntervalID !== undefined){
             clearInterval(this.updateIntervalID);
         }
-        this.status = 'stoped'
-        return 'game paused'
+        this.status = 'stoped';
+        return 'game paused';
     },
     
     // start the interval that calls update()
     start : function () {
         var that = this;
-        this.status = 'active'
+        this.status = 'active';
         this.updateIntervalID = setInterval(
             function () { that.update() }, this.updateIntervalDelay
         );
-        return 'game start'
+        return 'game start';
     },
     
     toJson : function () {
-        var json_room = []
+        var json_room = [];
         for (var i in this.room) json_room.push(this.room[i].toJson())
         
-        var json_player = []
+        var json_player = [];
         for (var i in this.player) json_player.push(this.player[i].toJson())
             
-        var json_event = []
+        var json_event = [];
         for (var i in this.event) json_event.push(this.event[i].toJson())
         
         var json = {
@@ -132,7 +132,7 @@ Spaceship.prototype = {
             'room' : json_room,
             'player' : json_player,
             'event' : json_event
-        }
-        return json
+        };
+        return json;
     }
 }

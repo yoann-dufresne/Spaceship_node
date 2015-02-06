@@ -1,5 +1,7 @@
-module.exports.Event = Event
-module.exports.BasicEvent = BasicEvent
+var spec = require('./spec');
+
+module.exports.Event = Event;
+module.exports.BasicEvent = BasicEvent;
 
 function Event (id, type) {
 
@@ -9,27 +11,27 @@ function Event (id, type) {
 Event.prototype = {
     
     init : function (id, type) {
-        console.log("-------new_event : "+type+"------")
+        console.log("-------new_event : "+type+"------");
         this.type = type;
-        this.id = id
-        this.effect = []
-        this.oxygen = 0
-        this.speed = 0
-        this.active = true
+        this.id = id;
+        this.effect = [];
+        this.oxygen = 0;
+        this.speed = 0;
+        this.active = true;
         
         //retrieve value in event desc file
-        var oxygen = EVENT[this.type].oxygen
-        var speed = EVENT[this.type].speed
-        var effect = EVENT[this.type].effect
+        var oxygen = spec.EVENT[this.type].oxygen,
+            speed = spec.EVENT[this.type].speed,
+            effect = spec.EVENT[this.type].effect;
         
         //apply default value if exist
-        if (typeof oxygen != 'undefined') this.oxygen = oxygen
-        if (typeof speed != 'undefined') this.speed = speed
-        if (typeof effect != 'undefined') this.effect = effect    
+        if (typeof oxygen != 'undefined') this.oxygen = oxygen;
+        if (typeof speed != 'undefined') this.speed = speed;
+        if (typeof effect != 'undefined') this.effect = effect;    
     },
     
     solve : function () {
-        this.active = false
+        this.active = false;
     },
     
     // toJson() doesn't not return json string, but jsonable object.
@@ -40,8 +42,8 @@ Event.prototype = {
             'oxygen' : this.oxygen,
             'speed' : this.speed,
             'effect' : this.effect
-        }
-        return json
+        };
+        return json;
     }
     
 }
