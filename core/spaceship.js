@@ -43,14 +43,14 @@ Spaceship.prototype = {
     
     addRoom : function (type) {
         var id = this.room.length;
-        var room = new r.Room(type, id);
+        var room = new r.Room({ type: type, id: id });
         
         this.room.push(room);
     }, 
     
     addPlayer : function (type) {
         var id = this.player.length;
-        var player = new p.Player(type, id);
+        var player = new p.Player({ type: type, id: id });
         
         this.player.push(player);
     }, 
@@ -58,7 +58,7 @@ Spaceship.prototype = {
     addEvent : function (type) {
         var id = this.nextEventId;
         this.nextEventId++;
-        var event = new spec.EVENT[type].constructor(type,id,this);
+        var event = new spec.EVENT[type].constructor({type: type, id: id, spaceship: this});
 
         this.event.push(event);
     }, 

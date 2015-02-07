@@ -1,11 +1,14 @@
-var spec = require('./spec');
+ var spec = require('./spec');
 
 module.exports.Event = Event;
 module.exports.BasicEvent = BasicEvent;
 
-function Event (type, id, spaceship) {
+/*
+ * args : type, id, spaceship
+ */
+function Event (args) {
 
-    this.init(type, id, spaceship);
+    this.init(args.type, args.id, args.spaceship);
 }
 
 Event.prototype = {
@@ -49,10 +52,13 @@ Event.prototype = {
     
 }
 
-function BasicEvent (type, id, spaceship) {
+/*
+ * args : type, id, spaceship
+ */
+function BasicEvent (args) {
 
     // call the Event constructor. I think is cleaner than call the init() method.
-    Event.call(this, type, id, spaceship);
+    Event.call(this, args);
     
     //select a room among available one
     var rooms = this.spaceship.getAvailableRoom();

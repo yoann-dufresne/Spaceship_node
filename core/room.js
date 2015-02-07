@@ -2,10 +2,13 @@ var spec = require('./spec');
 
 module.exports.Room = Room;
 
-function Room(type, id) {
-    console.log("-------new_room : "+type+"------");
-    this.type = type;
-    this.id = id;
+/*
+ * args: type, id
+ */
+function Room(args) {
+    console.log("-------new_room : "+args.type+"------");
+    this.type = args.type;
+    this.id = args.id;
     this.changeStatus(spec.DEFAULT_STATUS);
 }
 
