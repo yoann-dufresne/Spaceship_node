@@ -1,7 +1,7 @@
- var spec = require('./spec');
-
 module.exports.Event = Event;
 module.exports.BasicEvent = BasicEvent;
+
+ var spec = require('./spec');
 
 /*
  * args : type, id, spaceship
@@ -83,7 +83,7 @@ BasicEvent.prototype.toJson = function () {
     var json = Event.prototype.toJson.call(this);
  
     // extend it
-    json.room_id = this.spaceship.getAvailableRoom();
+    json.room_id = this.room_id;
 
     return json;
 }
@@ -100,4 +100,3 @@ BasicEvent.prototype.solve = function (player_id) {
     this.spaceship.room[this.room_id].changeStatus('enabled')
     this.spaceship.room[this.room_id].available = true;
 }
-
