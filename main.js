@@ -18,12 +18,9 @@ spaceship.addPlayer('Engineer')
 spaceship.addPlayer('Marine')
 spaceship.addPlayer('Firefighter')
 
-//
-spaceship.addEvent(new e.BasicEvent(1, 'NoSignal', 1))
-
 spaceship.start()
 
-console.log(spaceship.toJson())
+//console.log(spaceship.toJson())
 
 //simple server for client static files (everything in /client is visible)
 var app = express();
@@ -52,7 +49,7 @@ app.get('/spaceship', function(req,res) {
 app.get('/event', function(req,res) {
     switch (req.query.command) {
         case 'solve':
-            res.send(spaceship.event[req.query.event_id].solve(spaceship, req.query.player_id));
+            res.send(spaceship.getEventById(req.query.event_id).solve(req.query.player_id));
             break;
     }
 })
