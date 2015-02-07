@@ -1,11 +1,16 @@
+var spec = require('./spec');
+
 module.exports.Spaceship = Spaceship;
 
 var r = require('./room'),
-    p = require('./player');
+    p = require('./player'),
+    e = require('./event'),
+    eg = require('./eventGenerator');
 
 function Spaceship() {
     console.log( "--------new spaceship---------" );
     this.init();
+    this.nextEventId=0
 }
 
 Spaceship.prototype = {
@@ -30,23 +35,31 @@ Spaceship.prototype = {
     
     init : function () {
         console.log( "> init spaceship" );
+        this.eventGenerator = new eg.EventGenerator(this);
         this.reset();
         this.room = [];
         this.player = [];
     },
     
     addRoom : function (type) {
-        var room = new r.Room(type);
+        var id = this.room.length;
+        var room = new r.Room(type, id);
+        
         this.room.push(room);
     }, 
     
     addPlayer : function (type) {
-        var player = new p.Player(type);
+        var id = this.player.length;
+        var player = new p.Player(type, id);
+        
         this.player.push(player);
     }, 
     
-    addEvent : function (event) {
-        event.applyEffect(this);
+    addEvent : function (type) {
+        var id = this.nextEventId;
+        this.nextEventId++;
+        var event = new spec.EVENT[type].constructor(type,id,this);
+
         this.event.push(event);
     }, 
     
@@ -56,6 +69,7 @@ Spaceship.prototype = {
             this.delta_oxygen = 0;
             this.current_speed = 0;
             this.effect = [];
+            this.eventGenerator.update()
             
             //compute the sum of all bonus/malus oxygen/speed given by rooms and events
             for (var i = 0; i < this.room.length; i += 1) {
@@ -113,6 +127,28 @@ Spaceship.prototype = {
         return 'game start';
     },
     
+    getRoomById : function (room_id) {
+        return this.room[room_id];
+    },
+    
+    getPlayerById : function (player_id) {
+        return this.player[player_id];
+    },
+    
+    getEventById : function (event_id) {
+        for (var i in this.event){
+            if (this.event[i].id == event_id) return this.event[i];
+        };
+    },
+    
+    getAvailableRoom : function () {
+        var availableRoom = [];
+        for (var i in this.room){
+            if (this.room[i].available) availableRoom.push(this.room[i].id);
+        };
+        return availableRoom;
+    },
+    
     toJson : function () {
         var json_room = [];
         for (var i in this.room) json_room.push(this.room[i].toJson())
@@ -131,7 +167,8 @@ Spaceship.prototype = {
             'delta_oxygen' : this.delta_oxygen,
             'room' : json_room,
             'player' : json_player,
-            'event' : json_event
+            'event' : json_event,
+            'eventGenerator' : this.eventGenerator.toJson()
         };
         return json;
     }
