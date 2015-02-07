@@ -1,9 +1,12 @@
 module.exports.Player = Player;
 
-function Player(type, id) {
-    console.log("-------new_player : "+type+"------");
-    this.type = type;
-    this.id = id;
+/*
+ * args: type, id
+ */
+function Player(args) {
+    console.log("-------new_player : "+args.type+"------");
+    this.type = args.type;
+    this.id = args.id;
 }
 
 Player.prototype = {
