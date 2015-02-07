@@ -2,9 +2,10 @@ var spec = require('./spec');
 
 module.exports.Room = Room;
 
-function Room(type) {
+function Room(type, id) {
     console.log("-------new_room : "+type+"------");
     this.type = type;
+    this.id = id;
     this.changeStatus(spec.DEFAULT_STATUS);
 }
 
@@ -15,6 +16,7 @@ Room.prototype = {
         this.oxygen = 0;
         this.speed = 0;
         this.status = spec.DEFAULT_STATUS;
+        this.available = true;
     },
     
     changeStatus: function (status) {
@@ -35,6 +37,7 @@ Room.prototype = {
     toJson : function () {
         var json = {
             'type' : this.type,
+            'id' : this.id,
             'status' : this.status,
             'oxygen' : this.oxygen,
             'speed' : this.speed,
