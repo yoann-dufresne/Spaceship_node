@@ -73,7 +73,7 @@ module.exports = {
         this.spaceship.addRoom('Computer'); // room ID should be 0
         test.ok(typeof this.spaceship.room[0] != 'undefined');
 
-        this.spaceship.addEvent(new event.BasicEvent(0, 'Fire', 0));
+        this.spaceship.addEvent('Fire');
 
         test.strictEqual(this.spaceship.event.length, 1);
         test.strictEqual(this.spaceship.room[0].status, 'disabled');
@@ -83,17 +83,21 @@ module.exports = {
 
     toto: function (test){
 
-        this.spaceship.addRoom('Computer'); // room ID should be 0
-        this.spaceship.addRoom('Cockpit'); // room ID should be 1
-        this.spaceship.addEvent(new event.BasicEvent(0, 'Fire', 0));
+        console.log('spec.EVENT = ' + spec.EVENT);
+
+        this.spaceship.addRoom('Computer');
+        this.spaceship.addEvent('Fire');
         test.strictEqual()
 
         this.spaceship.status = 'active'; // manually active.
         this.spaceship.update();
 
+        this.spaceship.addRoom('Cockpit');
+        this.spaceship.update();
+
         test.deepEqual(this.spaceship.effect, ['randomFailure']);
         test.strictEqual(this.spaceship.delta_oxygen, -1);
-        test.strictEqual(this.spaceship.oxygen, 99);
+        test.strictEqual(this.spaceship.oxygen, 98);
         test.strictEqual(this.spaceship.current_speed, 0.5);
         test.strictEqual(this.spaceship.time_left, this.spaceship.initialTimeLeft - 0.5);
 

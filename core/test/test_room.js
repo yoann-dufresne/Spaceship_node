@@ -13,11 +13,13 @@ function defined_else(variable, default_){
 module.exports.Room = {
     setUp: function (callback){
         this.table = [];
+        var id = 0;
         for (type in spec.ROOM) {
             if (spec.ROOM.hasOwnProperty(type)){
+                id += 1;
                 this.table.push({
                     type: type,
-                    inst: new room.Room(type)
+                    inst: new room.Room({type: type, id: id})
                 });
             }
         }

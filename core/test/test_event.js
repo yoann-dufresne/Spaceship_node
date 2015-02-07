@@ -5,6 +5,11 @@ var spaceship = require('../spaceship');
 
 module.exports.Event = {
     
+    setUp: function (callback){
+        this.spaceship = new spaceship.Spaceship();
+        callback();
+    },
+
     ctor: function (test){
 
         // create a table with all event types
@@ -18,7 +23,7 @@ module.exports.Event = {
         // do some tests for each type
         typeTable.forEach(function (type){
 
-                var e = new eventModule.Event(2, type);
+                var e = new eventModule.Event({id: 2, type: type, spaceship: this.spaceship});
 
                 // values passed to the ctor 
                 test.strictEqual(e.id, 2, 'wrong Event.id');
@@ -51,7 +56,7 @@ module.exports.Event = {
     },
 
     solve: function (test){
-        var e = new eventModule.Event(1, 'Fire');
+        var e = new eventModule.Event({id: 1, type: 'Fire', spaceship: this.spaceship});
 
         e.solve();
         test.ok(!e.active, 'active should be false after solve()');
@@ -60,7 +65,7 @@ module.exports.Event = {
     },
 
     toJson: function (test){
-        var e = new eventModule.Event(1, 'Fire');
+        var e = new eventModule.Event({id: 1, type: 'Fire', spaceship: this.spaceship});
 
         var json = e.toJson();
 
@@ -82,7 +87,7 @@ module.exports.BasicEvent = {
         console.log('setup')
         this.spaceship = new spaceship.Spaceship();
         this.spaceship.addRoom('CommandCenter');
-        this.e = new eventModule.BasicEvent(42, 'Alien', 0);
+        this.e = new eventModule.BasicEvent({ id: 42, type: 'Alien', spaceship: this.spaceship});
         callback();
         console.log('setup end')
 
