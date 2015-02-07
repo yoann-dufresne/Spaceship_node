@@ -1,4 +1,4 @@
-e = require('./event'),
+var e = require('./event');
 
 EVENT_INHIB = 0.8;   //speed at which the inhibitors will fade away
 EVENT_DENOMINATOR = 100;
