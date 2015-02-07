@@ -1,4 +1,4 @@
-DEFAULT_STATUS = 'enabled'
+DEFAULT_STATUS = 'enabled';
 
 ROOM = {
     
