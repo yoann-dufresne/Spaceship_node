@@ -13,3 +13,5 @@ exports.PLAYER = PLAYER;
 
 eval(fs.readFileSync('core/desc/event_desc.js')+'');
 exports.EVENT = EVENT;
+exports.EVENT_INHIB = EVENT_INHIB;
+exports.EVENT_DENOMINATOR = EVENT_DENOMINATOR;
