@@ -1,0 +1,41 @@
+
+#frame img {
+	position : absolute;
+}
+
+#frame .alien {
+	left:5%;
+}
+
+.animated {
+  background-color: red;
+  position: relative;
+  -webkit-animation: redBox 5s 1;
+  -moz-animation: redBox 5s 1;
+  animation: redBox 5s 1;
+}
+
+@-webkit-keyframes redBox {
+  0% {
+    left: 5%;
+  }
+  100% {
+    left: 90%;
+  }
+}
+@-moz-keyframes redBox {
+  0% {
+    left: 5%;
+  }
+  100% {
+    left: 90%;
+  }
+}
+@keyframes 'redBox' {
+  0% {
+    left: 5%;
+  }
+  100% {
+    left: 90%;
+  }
+}
