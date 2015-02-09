@@ -5,14 +5,21 @@
 
 #frame .alien {
 	left:5%;
+	min-height: 10%;
+}
+
+#frame p {
+  display: inline-block;
+  color: white;
+  margin: 0px;
+  font-size: 100%
 }
 
 .animated {
-  background-color: red;
-  position: relative;
-  -webkit-animation: redBox 5s 1;
-  -moz-animation: redBox 5s 1;
-  animation: redBox 5s 1;
+  position: absolute;
+  -webkit-animation: redBox 3s 1;
+  -moz-animation: redBox 3s 1;
+  animation: redBox 3s 1;
 }
 
 @-webkit-keyframes redBox {

@@ -8,20 +8,32 @@ function AlienGame (frame) {
 AlienGame.prototype = {
 
 	createAlien : function () {
+		var alienBlock = document.createElement("div");
+		alienBlock.classList.add("alien");
+		var offset = Math.random()*10 - 5;
+		alienBlock.style.top = "" + (30 + offset) + "%";
+		alienBlock.style.height = "50%";
+
+		var txt = document.createElement("p");
+		txt.innerHTML = this.names[Math.floor(Math.random()*(this.names.length-1))];
+		alienBlock.appendChild(txt);
+
 		var img = document.createElement("img");
 		img.src = "alien.png";
-		img.style.height = "30%";
-		img.classList.add("alien");
+		img.style.display = "block";
+		img.style.height = "80%";
+		img.style.bottom = "0%";
+		alienBlock.appendChild(img);
 
-		var offset = Math.random()*10 - 5;
-		img.style.top = "" + (30 + offset) + "%";
+		alienBlock.classList.add("animated");
+		img.addEventListener('webkitAnimationEnd', function (event) {img.style.display = "none";}, false);
 
-		img.classList.add("animated");
+		this.frame.appendChild(alienBlock);
+	},
 
-		this.frame.appendChild(img);
-	}
+	names : ["Roger", "Paul", "Plitrik", "Jurmidov", "Mazuk", "Timoléon", "Pritonk", "Zglorg", "$#@&!ù%", "Jaipadnom", "Bulgroz", "Zorglub", "Althazor", "RémiBocquet", "Pritwook", "Khandivlop", "Basshunter", '"); -- ', "Rhibox", "TotoLeHaricot", "Razhul", "Ruffux", "Grosmehz"]
 
-	names : [];
+	
 }	
 
 
