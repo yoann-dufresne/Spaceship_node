@@ -1,0 +1,115 @@
+
+/*input[type=text], textarea {
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  outline: none;
+  padding: 3px 0px 3px 3px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid #DDDDDD;
+}
+*/ 
+
+.hack-wrapper {
+  margin: 0 auto;
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  color: black;
+  border-spacing: 0;
+  border: solid;
+}
+
+.hack-input-block{ 
+  margin: 0 auto;
+}
+
+.hack-input-block {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.hack-alphabet {
+  font-style: italic;
+  text-align: right;
+  overflow: auto;
+}
+
+.hack-submit {
+}
+
+.hack-input {
+  width: 25%;
+  text-align: center;
+
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  outline: none;
+  padding: 3px 0px 3px 3px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid #DDDDDD;
+}
+
+.hack-input:focus.hack-valid {
+  box-shadow: 0 0 5px green;
+  padding: 3px 0px 3px 3px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid green;
+}
+
+.hack-input:focus.hack-error {
+  box-shadow: 0 0 5px red;
+  padding: 3px 0px 3px 3px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid red;
+}
+
+.hack-table-block {
+  background-color: darkgrey;
+  overflow: auto;
+  height: 300px;
+  border: 2px solid;
+  border-radius: 5px;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.hack-table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.hack-table td {
+	width: 50px;
+	text-align: center;
+  border: 1px solid white;
+  border-collapse: collapse;
+}
+
+.hack-table tr:nth-child(1) th,
+.hack-table td:nth-child(1)
+{
+  width: 50pxb;
+  text-transform: bold;
+  border: 1px solid white;
+  border-collapse: collapse;
+  background-color: black;
+	color: darkgrey;
+}
+
+.hack-cell-good {
+  background-color: green;
+}
+
+.hack-cell-wrong {
+  background-color: red;
+}
+
+.hack-cell-elsewhere {
+  background-color: orange;
+}
