@@ -1,18 +1,20 @@
 
-#frame img {
-	position : absolute;
-}
-
 #frame .alien {
 	left:5%;
-	min-height: 10%;
+  height: 50%;
+}
+
+#frame .alienImg {
+  display : block;
+  height : 80%;
+  bottom : 0%;
 }
 
 #frame p {
   display: inline-block;
   color: white;
   margin: 0px;
-  font-size: 100%
+  text-align: center;
 }
 
 .animated {
