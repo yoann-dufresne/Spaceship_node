@@ -34,7 +34,9 @@ Event.prototype = {
         if (typeof effect != 'undefined') this.effect = effect;    
     },
     
-    solve : function () {
+    solve : function (player_id) {
+		//TODO save player_id in game log
+		console.log("> solve event : "+this.type)
         this.active = false;
     },
     
@@ -89,14 +91,6 @@ BasicEvent.prototype.toJson = function () {
 }
 
 BasicEvent.prototype.applyEffect = function () {
-    if (this.active){
-        this.spaceship.room[this.room_id].changeStatus('disabled');
-        this.spaceship.room[this.room_id].available = false;
-    }
-}
-
-BasicEvent.prototype.solve = function (player_id) {
-    this.active = false
-    this.spaceship.room[this.room_id].changeStatus('enabled')
-    this.spaceship.room[this.room_id].available = true;
+	this.spaceship.room[this.room_id].changeStatus('disabled');
+	this.spaceship.room[this.room_id].available = false;
 }
