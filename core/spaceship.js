@@ -90,9 +90,6 @@ Spaceship.prototype = {
 				this.effect = this.effect.concat(this.event[i].effect);
             }
             
-            //update ship current oxygen/time_left
-            this.oxygen = (this.oxygen + this.delta_oxygen) % 100;
-            this.time_left -= this.current_speed;
             
             //update ship current oxygen/time_left
             this.oxygen = this.oxygen + this.delta_oxygen;
