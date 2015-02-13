@@ -1,0 +1,212 @@
+body {
+    margin : 0px;
+    background : black;
+    background-size : 100% 100%;
+}
+
+#screen {
+    width : 100%;
+    height : 100%;
+}
+
+.img{
+    width: 100%;
+    height: 100%;
+    position:absolute;
+}
+
+.gauge_box {    
+    background-color: rgba(200,200,200,0.2);
+    color: rgba(255,255,255,0.8);
+    float: left;
+    height: calc( 100% - 24px );
+    margin: 6px;
+    padding: 6px;
+    width: calc( 33.3% - 24px );
+}
+
+.gauge_name {
+    font-size: 22px;
+    background-color: rgba(0,0,0,0.6);
+    padding: 5px;
+    font-family: courier;
+    font-weight: bold;
+    margin-bottom: 6px;
+    font-style: normal;
+    text-transform: uppercase;
+}
+
+.status{
+    float: right;
+    text-transform: none;
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 5px;
+}
+
+.gauge_table {
+    width : 100%;
+    display : table;
+    margin-top: 11px;
+}
+
+.gauge_cell{
+    display : table-cell;
+    width : 75%;
+}
+
+.gauge {
+    background-color: rgba(0,0,0,0.4);
+    height: 22px;
+}
+
+.gauge_value {
+    text-align: center;
+    font-size: 25px;
+    font-family: monospace;
+}
+
+.gauge_level {
+    height:100%;
+    width:50%;
+    -webkit-transition: width 1s;
+    transition: width 1s;
+}
+
+.oxygen {
+    background-image: linear-gradient(60deg, rgb(6,226,165), rgb(189,248,232));
+}
+
+.oxygen2 {
+    background-image: linear-gradient(60deg, rgb(226,160,6), rgb(248,160,120));
+    }
+
+.goal {
+    background-image: linear-gradient(60deg, rgb(255,127,24), rgb(246,147,68));
+}
+
+.time {
+    background-image: linear-gradient(60deg, rgb(255,51,24), rgb(255,125,122));
+}
+
+
+
+.room {
+    position : absolute;
+    color: rgba(255,255,255,0.8);
+    background-color: rgba(200,200,200,0.2);
+    padding: 6px;
+}
+
+.room_name {
+    font-size: 1.2vw;
+    background-color: rgba(0,0,0,0.6);
+    padding: 5px;
+    font-family: courier;
+    font-weight: bold;
+    margin-bottom : 6px;
+    font-style: normal;
+    text-transform : uppercase;
+}
+
+.room_event {
+    display : table;
+}
+
+.event_icon {
+    display: table-cell;
+    vertical-align: middle;
+    width : 10vh;
+    height : 10vh;
+}
+
+.event_name {
+    display: table-cell;
+    vertical-align: middle;   
+    font-family: courier;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 6px;
+}
+
+.inactive {
+    opacity : 0.25;
+}
+
+#ship {
+    position : absolute;
+    top : 0%;
+    left : 0%;
+    width : 100%;
+    height : 100%;
+}
+
+#goal {
+    position: absolute;
+    z-index: 5;
+    width: 20%;
+    bottom: 1%;
+    left: 41%;
+    text-align: center;
+    font-size: 9vh;
+    overflow: hidden;
+    font-family: monospace;
+    font-weight: bold;
+    letter-spacing: 1vw;
+    color: orangered;
+    background: rgba(0,0,0,0.8);
+    border-radius: 2vh;
+    padding-left: 1vw;
+}
+
+#oxygen {
+    position: absolute;
+    z-index: 5;
+    width: 88.2%;
+    height: 4%;
+    top: 2%;
+    padding-left: 8.8%;
+}
+
+#end {
+    display:none;
+    position:absolute;
+    width:80%;
+    height:95%;
+    top:0%;
+    right:5%;
+    padding: 2.5vh 5vw;
+    background: rgba(50,50,50,0.95);
+    z-index : 100;
+}
+
+#start {
+    position:absolute;
+    width:30%;
+    top:40%;
+    right:35%;
+    background:black;
+    z-index : 100;
+    padding: 2% 0%;
+    font-size: 4vh;
+    font-family: courier;
+    font-weight: bold;
+    font-style: normal;
+    text-transform : uppercase;
+    text-align:center;
+    color: rgba(255,255,255,0.8);
+}
+
+.oxygen_bar{
+    position:absolute;
+    background:rgba(7,165,210,1);
+}
+
+.time_bar{
+    position:absolute;
+    background:rgba(0,0,0,0);
+    border-top:solid;
+    border-width:5px;
+    border-color:orangered;
+}
