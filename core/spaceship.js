@@ -69,9 +69,12 @@ Spaceship.prototype = {
             this.delta_oxygen = 0;
             this.current_speed = 0;
             this.effect = [];
-            this.eventGenerator.update()
-            
-            //compute the sum of all bonus/malus oxygen/speed given by rooms and events
+			
+			this.updateEvents();
+			this.updateRooms();
+			this.eventGenerator.update();
+			
+            //compute the sum of all bonus/malus oxygen/speed given by rooms ...
             for (var i = 0; i < this.room.length; i += 1) {
                 this.delta_oxygen += this.room[i].oxygen;
                 this.current_speed += this.room[i].speed;
@@ -80,23 +83,21 @@ Spaceship.prototype = {
                 this.effect = this.effect.concat(this.room[i].effect);
             }
             
+            //... and events
             for (var i = 0; i < this.event.length; i += 1) {
-                // filter the solved events
-                if (this.event[i].active){ 
-                    this.delta_oxygen += this.event[i].oxygen;
-                    this.current_speed += this.event[i].speed;
-                    this.effect = this.effect.concat(this.event[i].effect);
-                }
+				this.delta_oxygen += this.event[i].oxygen;
+				this.current_speed += this.event[i].speed;
+				this.effect = this.effect.concat(this.event[i].effect);
             }
             
             //update ship current oxygen/time_left
             this.oxygen = (this.oxygen + this.delta_oxygen) % 100;
             this.time_left -= this.current_speed;
             
-            //remove solved event from event list
-            for (var i = this.event.length-1 ; i>=0; i -= 1) {
-                if (!this.event[i].active) this.event.splice(i, 1);
-            }     
+            //update ship current oxygen/time_left
+            this.oxygen = this.oxygen + this.delta_oxygen;
+			if (this.oxygen > 100) this.oxygen = 100;
+            this.time_left -= this.current_speed;  
             
             // the order is important and might be discuted
             if (this.oxygen < 0){
@@ -107,9 +108,29 @@ Spaceship.prototype = {
             }
         }
     },
+    
+    updateEvents : function () {
+		//remove solved event from event list
+		for (var i = this.event.length-1 ; i>=0; i -= 1) {
+			
+			if (!this.event[i].active) {
+				console.log('bob')
+				this.event.splice(i, 1);
+			}
+		}   
+    },
+	
+	updateRooms : function () {
+		//reset rooms
+		for (var i = 0; i < this.room.length; i += 1) this.room[i].changeStatus(spec.DEFAULT_STATUS);
+		
+		//apply events effects on rooms
+		for (var i = 0; i < this.event.length; i += 1) this.event[i].applyEffect();
+	},
 
     // stop the interval that calls update()
     stop : function () {
+	console.log( "> stop spaceship" );
         if (this.updateIntervalID !== undefined){
             clearInterval(this.updateIntervalID);
         }
@@ -119,6 +140,7 @@ Spaceship.prototype = {
     
     // start the interval that calls update()
     start : function () {
+	console.log( "> start spaceship" );
         var that = this;
         this.status = 'active';
         this.updateIntervalID = setInterval(
