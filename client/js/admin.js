@@ -20,7 +20,7 @@ Admin.prototype.init = function () {
 		self.comunicate.askServer("/spaceship", {"command":"reset"});
 	};
 	
-	setInterval(function(){self.update()}, 1000)
+	setInterval(function(){self.update()}, 1000);
 
 }
 
@@ -55,30 +55,30 @@ Admin.prototype.displayRooms = function () {
 Admin.prototype.updateRoom = function (data) {
   var room_div = this.roomList[data.id].div;
   if (data.status != "enabled"){
-    room_div.style.background = "#DA7870"
+    room_div.style.background = "#DA7870";
   }else{
-    room_div.style.background = "#56A764"
+    room_div.style.background = "#56A764";
   }
 }
 
 Admin.prototype.displayEvents = function () {
-  var list_id = []
+  var list_id = [];
   
   for (var i in this.data.event){
     var id = this.data.event[i].id;
-    list_id.push(id+"")
+    list_id.push(id+"");
     
     if (typeof(this.eventList[id]) == 'undefined'){
-      this.addEvent(this.data.event[i])
+      this.addEvent(this.data.event[i]);
     }else{
-      //this.updateEvent(this.data.event[i])
+      //this.updateEvent(this.data.event[i]);
     }
   }
   
   for (var i in this.eventList){
     if (list_id.indexOf(i+"") == -1){
-      console.log(list_id +" "+ i)
-      this.removeEvent(i)
+      console.log(list_id +" "+ i);
+      this.removeEvent(i);
     }
   }
   
@@ -89,17 +89,17 @@ Admin.prototype.displayStatus = function () {
 }
 
 Admin.prototype.addRoom = function (data) {
-    var rooms = document.getElementById("rooms")
+    var rooms = document.getElementById("rooms");
   
-    var room = document.createElement('div')
-    room.className = "room"
-    room.id = "room_"+data.id
+    var room = document.createElement('div');
+    room.className = "room";
+    room.id = "room_"+data.id;
     
-    var name = document.createElement('h2')
-    name.appendChild(document.createTextNode(data.type))
+    var name = document.createElement('h2');
+    name.appendChild(document.createTextNode(data.type));
 
-    room.appendChild(name)
-    rooms.appendChild(room)
+    room.appendChild(name);
+    rooms.appendChild(room);
     
     this.roomList[data.id] = { 
       'div' : room,
@@ -108,30 +108,30 @@ Admin.prototype.addRoom = function (data) {
 }
 
 Admin.prototype.addEvent = function (data) {
-  var self = this;
-    var events = document.getElementById("events")
+	var self = this;
+    var events = document.getElementById("events");
   
-    var event = document.createElement('div')
-    event.className = "event"
-    event.id = "event_"+data.id
+    var event = document.createElement('div');
+    event.className = "event";
+    event.id = "event_"+data.id;
     
-    var name = document.createElement('h2')
-    name.appendChild(document.createTextNode(data.type))
+    var name = document.createElement('h2');
+    name.appendChild(document.createTextNode(data.type));
 
     var args = {
       'player_id' :'admin',
       'event_id' : data.id,
       'command': 'solve'
     }
-    var solve = document.createElement('button')
+    var solve = document.createElement('button');
     solve.onclick = function () {
-      self.comunicate.askServer('/event', args)
+      self.comunicate.askServer('/event', args);
     }
-    solve.appendChild(document.createTextNode('solve'))
+    solve.appendChild(document.createTextNode('solve'));
     
-    event.appendChild(name)
-    event.appendChild(solve)
-    events.appendChild(event)
+    event.appendChild(name);
+    event.appendChild(solve);
+    events.appendChild(event);
     
     this.eventList[data.id] = { 
       'div' : event,

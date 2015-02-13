@@ -36,7 +36,7 @@ Event.prototype = {
     
     solve : function (player_id) {
 		//TODO save player_id in game log
-		console.log("> solve event : "+this.type)
+		console.log("> solve event : "+this.type);
         this.active = false;
     },
     
@@ -68,10 +68,10 @@ function BasicEvent (args) {
     //if not enough available room for this event
     //active -> false will remove it 
     if (rooms.length < 1) {
-        this.active = false
+        this.active = false;
     }else{
         this.room_id = rooms[Math.floor(Math.random()*rooms.length)];
-        this.applyEffect()
+        this.applyEffect();
     }
 }
 

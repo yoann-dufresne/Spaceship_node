@@ -10,7 +10,7 @@ var r = require('./room'),
 function Spaceship() {
     console.log( "--------new spaceship---------" );
     this.init();
-    this.nextEventId=0
+    this.nextEventId=0;
 }
 
 Spaceship.prototype = {
@@ -111,7 +111,6 @@ Spaceship.prototype = {
 		for (var i = this.event.length-1 ; i>=0; i -= 1) {
 			
 			if (!this.event[i].active) {
-				console.log('bob')
 				this.event.splice(i, 1);
 			}
 		}   
@@ -170,13 +169,13 @@ Spaceship.prototype = {
     
     toJson : function () {
         var json_room = [];
-        for (var i in this.room) json_room.push(this.room[i].toJson())
+        for (var i in this.room) json_room.push(this.room[i].toJson());
         
         var json_player = [];
-        for (var i in this.player) json_player.push(this.player[i].toJson())
+        for (var i in this.player) json_player.push(this.player[i].toJson());
             
         var json_event = [];
-        for (var i in this.event) json_event.push(this.event[i].toJson())
+        for (var i in this.event) json_event.push(this.event[i].toJson());
         
         var json = {
             'status' : this.status,
