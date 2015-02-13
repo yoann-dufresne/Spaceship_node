@@ -1,0 +1,77 @@
+
+body>* {
+	text-align: center;
+}
+
+#parameters * {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+#parameters input {
+	margin-right: 30px;
+}
+
+
+/* -------- Rooms -------- */
+
+#rooms {
+	float: left;
+	display: inline-block;
+	width: 60%;
+}
+
+#events {
+	float: left;
+	display: inline-block;
+	width: 39%;
+}
+
+#rooms div {
+	vertical-align: middle;
+}
+.room, .event{
+	display: inline-block;
+	text-align: left;
+
+	width: 300px;
+	height: 100px;
+	margin: 10px;
+
+	border-radius: 7px;
+	border: 1px black solid;
+
+	background-color: #56A764;
+	/* #DA7870 */
+}
+
+
+.room>*, .event>*{
+	margin-left: 15px;
+}
+
+.room h2, .event h2 {
+	margin: 3px;
+	margin: auto;
+	margin-bottom: 10px;
+	text-align: center;
+}
+
+.room p, .room a, .event p, .event a {
+	font-size: large;
+	margin: 0px;
+}
+
+.room>div *, .event>div *  {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.name {
+	font-weight: bold;
+}
+
+.lineEvent button {
+	display: none;
+}
+
