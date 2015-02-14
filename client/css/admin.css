@@ -3,15 +3,20 @@ body>* {
 	text-align: center;
 }
 
-#parameters * {
-	display: inline-block;
-	vertical-align: middle;
+#spaceship table {
+	margin: auto;
+	border-collapse: collapse;
+	border: 1pt solid;
 }
 
-#parameters input {
-	margin-right: 30px;
+#spaceship table td, #spaceship table th {
+	border-collapse: collapse;
+	border: 1pt solid;
 }
 
+#spaceship table th {
+	background-color: grey;	
+}
 
 /* -------- Rooms -------- */
 

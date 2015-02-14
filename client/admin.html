@@ -10,20 +10,27 @@
 			<h1>Server status</h1>
 			<p id="log"></p>
 			<div>
-				<button id="start">Start</button>
-				<button id="stop">Stop</button>
+				<button id="start-stop">?</button>
 				<button id="reset">Reset</button>
 			</div>
 		</div>
 		
-		<div id="parameters">
+		<div id="spaceship">
 			<h1>Spaceship status</h1>
-			<div>
-			  oxygen: <span id="oxygen"></span>
-			  delta oxygen: <span id="delta_oxygen"></span>
-			  current speed: <span id="current_speed"></span>
-			  time left: <span id="time_left"></span>
-			 </div>
+			<table>
+				<tr>
+					<th>oxygen</th>
+					<th>delta oxygen</th>
+					<th>current speed</th>
+					<th>time left</th>
+				</tr>
+				<tr>
+					<td id='oxygen'>?</td>
+					<td id='delta_oxygen'>?</td>
+					<td id='current_speed'>?</td>
+					<td id='time_left'>?</td>
+				</tr>
+			</table>
 		</div>
 		
 		<div id="rooms">
