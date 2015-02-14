@@ -93,7 +93,8 @@ Admin.prototype.displayStatus = function () {
 
     if (typeof this.data !== 'undefined'){
         console.log(this.data.status);
-        this.elements.startStopButton.text = 'toto';
+        this.elements.startStopButton.textContent =
+            (this.data.status === 'active' ? 'stop' : 'start');
     }
 
     this.elements.deltaOxygen.textContent = this.data.delta_oxygen; 
@@ -181,5 +182,7 @@ Admin.prototype.resetButtonHandler = function (){
     this.elements.startStopButton.textContent = 'start';
 }
 
-var admin = new Admin();
+window.onload = function() {
+    var admin = new Admin();
+} 
 
