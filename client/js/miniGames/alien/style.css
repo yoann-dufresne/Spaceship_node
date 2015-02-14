@@ -19,12 +19,12 @@
 
 .animated {
   position: absolute;
-  -webkit-animation: redBox 3s 1;
-  -moz-animation: redBox 3s 1;
-  animation: redBox 3s 1;
+  -webkit-animation: linear alienBox 10s 1;
+  -moz-animation: linear alienBox 10s 1;
+  animation: linear alienBox 10s 1;
 }
 
-@-webkit-keyframes redBox {
+@-webkit-keyframes alienBox {
   0% {
     left: 5%;
   }
@@ -32,7 +32,7 @@
     left: 90%;
   }
 }
-@-moz-keyframes redBox {
+@-moz-keyframes alienBox {
   0% {
     left: 5%;
   }
@@ -40,7 +40,7 @@
     left: 90%;
   }
 }
-@keyframes 'redBox' {
+@keyframes 'alienBox' {
   0% {
     left: 5%;
   }
