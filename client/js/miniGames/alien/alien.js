@@ -2,6 +2,8 @@ const NB_ALIEN_PER_EVENT = 5;
 const totalTime = 10;
 const NAMES = ["Roger", "Paul", "Plitrik", "Jurmidov", "Mazuk", "Timoléon", "Pritonk", "Zglorg", "$#@&!ù%", "Jaipadnom", "Bulgroz", "Zorglub", "Althazor", "RémiBocquet", "Pritwook", "Khandivlop", "Basshunter", '"); -- ', "Rhibox", "TotoLeHaricot", "Razhul", "Ruffux", "Grosmehz", "Sanchez", "Ramirez", "Thuiong", "Popopoy", "Yopopop"];
 
+var alienId = 0;
+
 /* Creation of an alien mini game
 * If there is no alien json passed in parameter, then a list of new alien is created.
 */
@@ -55,6 +57,8 @@ AlienGame.prototype = {
 			img.src = alien.img;
 			alienBlock.appendChild(img);
 
+			self.blocs[alien.id] = alienBlock;
+
 			setTimeout(
 				function () {
 					// Add the animation property
@@ -70,7 +74,7 @@ AlienGame.prototype = {
 	setTime : function (alien, bloc) {
 		var self = this;
 		window.setTimeout(function () {
-			self.frame.removeChild(bloc);
+			$(bloc).remove();
 		}, self.time*997);
 	},
 
@@ -113,12 +117,15 @@ AlienGame.prototype = {
 	},
 
 	killAlien : function (alien) {
+		this.aliens.splice(this.aliens.indexOf(alien), 1);
 
+		$(this.blocs[alien.id]).remove();
 	}
 	
 }
 
 function Alien (name) {
+	this.id = alienId++;
 	this.name = name;
 	this.img = "alien.png";
 }
