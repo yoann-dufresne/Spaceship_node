@@ -1,23 +1,28 @@
 
 function Admin () {
-      this.init();
-      this.roomList = {};
-      this.eventList = {};
+    this.init();
+    this.roomList = {};
+    this.eventList = {};
+
+    this.elements = {
+        startStopButton: document.getElementById('start-stop'),
+        resetButton: document.getElementById('reset'),
+        oxygen: document.getElementById('oxygen'),
+        deltaOxygen: document.getElementById('delta_oxygen'),
+        currentSpeed: document.getElementById('current_speed'),
+        timeLeft: document.getElementById('time_left')
+    };
 }
 
 Admin.prototype.init = function () {
     var self = this;
     this.comunicate = new ServerCommunication();
-	document.getElementById("start").onclick = function () {
-		self.comunicate.askServer("/spaceship", {"command":"start"});
-	};
-
-	document.getElementById("stop").onclick = function () {
-		self.comunicate.askServer("/spaceship", {"command":"stop"});
+	document.getElementById("start-stop").onclick = function () {
+		self.startStopButtonHandler();
 	};
 
 	document.getElementById("reset").onclick = function () {
-		self.comunicate.askServer("/spaceship", {"command":"reset"});
+        self.resetButtonHandler();
 	};
 	
 	setInterval(function(){self.update()}, 1000);
@@ -85,7 +90,16 @@ Admin.prototype.displayEvents = function () {
 }
 
 Admin.prototype.displayStatus = function () {
-  
+
+    if (typeof this.data !== 'undefined'){
+        console.log(this.data.status);
+        this.elements.startStopButton.text = 'toto';
+    }
+
+    this.elements.deltaOxygen.textContent = this.data.delta_oxygen; 
+    this.elements.oxygen.textContent = this.data.oxygen; 
+    this.elements.timeLeft.textContent = this.data.time_left; 
+    this.elements.currentSpeed.textContent = this.data.current_speed; 
 }
 
 Admin.prototype.addRoom = function (data) {
@@ -145,6 +159,26 @@ Admin.prototype.removeEvent = function (id) {
   
   delete this.eventList[id];
   
+}
+
+Admin.prototype.startStopButtonHandler = function () {
+    if (typeof this.data === 'undefined')  {
+        return ;
+    }
+
+    if (this.data.status === 'active') {
+        this.comunicate.askServer("/spaceship", {"command":"stop"});
+        this.elements.startStopButton.textContent = 'start';
+    }
+    else {
+        this.comunicate.askServer("/spaceship", {"command":"start"});
+        this.elements.startStopButton.textContent = 'stop';
+    }
+}
+
+Admin.prototype.resetButtonHandler = function (){
+    this.comunicate.askServer("/spaceship", {"command":"reset"});
+    this.elements.startStopButton.textContent = 'start';
 }
 
 var admin = new Admin();

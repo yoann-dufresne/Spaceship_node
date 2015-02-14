@@ -1,3 +1,4 @@
+<!doctype html>
 <html>
 	<head>
 		<title>Administration</title>
@@ -9,15 +10,27 @@
 			<h1>Server status</h1>
 			<p id="log"></p>
 			<div>
-				<button id="start">Start</button>
-				<button id="stop">Stop</button>
+				<button id="start-stop">?</button>
 				<button id="reset">Reset</button>
 			</div>
 		</div>
 		
-		<div id="parameters">
-			<h1>Spaeship status</h1>
-			<span> oxygen </span>
+		<div id="spaceship">
+			<h1>Spaceship status</h1>
+			<table>
+				<tr>
+					<th>oxygen</th>
+					<th>delta oxygen</th>
+					<th>current speed</th>
+					<th>time left</th>
+				</tr>
+				<tr>
+					<td id='oxygen'>?</td>
+					<td id='delta_oxygen'>?</td>
+					<td id='current_speed'>?</td>
+					<td id='time_left'>?</td>
+				</tr>
+			</table>
 		</div>
 		
 		<div id="rooms">
@@ -27,8 +40,8 @@
 		<div id="events">
 			<h1>Events</h1>
 		</div>
-	</body>
 
-	<script type="text/javascript" src="js/ServerCommunication.js"></script>
-	<script type="text/javascript" src="js/admin.js"></script>
+		<script type="text/javascript" src="js/ServerCommunication.js"></script>
+		<script type="text/javascript" src="js/admin.js"></script>
+	</body>
 </html>
