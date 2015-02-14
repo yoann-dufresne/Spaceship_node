@@ -7,8 +7,8 @@ var alienId = 0;
 /* Creation of an alien mini game
 * If there is no alien json passed in parameter, then a list of new alien is created.
 */
-function AlienGame (frame, json) {
-	this.frame = frame;
+function AlienGame (frameId, json) {
+	this.frame = document.getElementById(frameId);
 
 	// Create alien objects
 	if (json == undefined) {
