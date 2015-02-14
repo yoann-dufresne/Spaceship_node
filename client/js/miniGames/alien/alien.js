@@ -23,6 +23,11 @@ function AlienGame (frame, json) {
 
 AlienGame.prototype = {
 
+	init : function () {
+		this.createDivs();
+		this.listen();
+	},
+
 	createDivs : function () {
 		this.blocs = {};
 		var decal = 0;
@@ -33,7 +38,8 @@ AlienGame.prototype = {
 			var alienBlock = document.createElement("div");
 			alienBlock.classList.add("alien");
 			// Offset is to calculate the gap between the bottom of the door and the alien position
-			var offset = Math.random()*10 - 5;
+			var layer = Math.floor(Math.random()*100);
+			var offset = layer/10;
 			alienBlock.style.top = "" + (30 + offset) + "%";
 
 			// Add the name of the alien
@@ -62,9 +68,32 @@ AlienGame.prototype = {
 	setTime : function (alien, bloc) {
 		window.setTimeout(function () {
 			ag.frame.removeChild(bloc);
-			//var idx = ag.aliens.indexOf(alien);
-			//ag.aliens.splice(idx, 1);
 		}, ag.time*995);
+	},
+
+	listen : function () {
+		this.namesLength = 0;
+		for (var i=0 ; i<this.aliens.length ; i++) {
+			if (this.aliens[i].name.length > this.namesLength)
+				this.namesLength = this.aliens[i].name.length;
+		}
+
+		this.keyFunction = document.onkeypress;
+		this.keys = new Array();
+		document.onkeypress = function (event) {
+			var c = String.fromCharCode(event.which);
+			ag.keys.push(c);
+
+			if (ag.keys.length > 10)
+				ag.keys.shift();
+			
+			var txt = "";
+			for (var i=0 ; i<ag.keys.length ; i++)
+				txt += ag.keys[i];
+
+			console.log(txt);
+		};
+
 	}
 	
 }
@@ -78,4 +107,4 @@ function Alien (name) {
 
 var frame = document.getElementById("frame");
 var ag = new AlienGame(frame);
-ag.createDivs();
+ag.init();
