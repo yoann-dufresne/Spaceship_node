@@ -1,5 +1,5 @@
 const NB_ALIEN_PER_EVENT = 5;
-const NAMES = ["Roger", "Paul", "Plitrik", "Jurmidov", "Mazuk", "Timoléon", "Pritonk", "Zglorg", "$#@&!ù%", "Jaipadnom", "Bulgroz", "Zorglub", "Althazor", "RémiBocquet", "Pritwook", "Khandivlop", "Basshunter", '"); -- ', "Rhibox", "TotoLeHaricot", "Razhul", "Ruffux", "Grosmehz", "Sanchez", "Ramirez", "Thuiong", "Popopoy", "Yopopop"];
+const NAMES = ["Roger", "Paul", "Plitrik", "Jurmidov", "Mazuk", "Timoléon", "Pritonk", "Zglorg", "$#@&!ù%", "Jaipadnom", "Bulgroz", "Zorglub", "Althazor", "RémiBocquet", "Pritwook", "Khandivlop", "Basshunter", '"); -- ', "Rhibox", "TotoLeHaricot", "Razhul", "Ruffux", "Grosmehz", "Sanchez", "Ramirez", "Thuiong", "Popopoy", "Yopopop","ManTariK","C4-H2W5","RakaTakaTa","FlörtZ","YarKiXu","XiwouNuku","MohamedAlien","kytria","Traomister","Gnorkol","DzaLaKrte","jeVpRdre","D2-A5-Xcxwo","MOuahaha","Gorukudrik","êlp",">K<X>","Krofniam","rRrRrRr","Thymnokur","Ertko","Gtaloy","Zafalisto","Rfarokàé","2-7203-283-DX","Typhirinux","Fk-tNy","Rtai,,e","g.y;jioe",")-O-(","123465789","Ztheurx","RhYniom"];
 
 /* Creation of an alien mini game
 * If there is no alien json passed in parameter, then a list of new alien is created.
