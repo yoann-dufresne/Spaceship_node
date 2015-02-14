@@ -42,7 +42,7 @@ EVENT = {
     'SpaceRock' :{
         'type' : 'normalEvent',
         'constructor' : e.BasicEvent,
-        'player' : [],
+        'player' : ['Firefighter', 'Marine', 'Engineer'],
         'probability' : 1,
 		'color' : 'yellow'
     },
@@ -50,7 +50,7 @@ EVENT = {
     'NoSignal' :{
         'type' : 'normalEvent',
         'constructor' : e.BasicEvent,
-        'player' : [],
+        'player' : ['Firefighter', 'Marine', 'Engineer'],
         'probability' : 1,
 		'color' : 'yellow'
     },
@@ -58,7 +58,7 @@ EVENT = {
     'ElectricFailure' :{
         'type' : 'normalEvent',
         'constructor' : e.BasicEvent,
-        'player' : [],
+        'player' : ['Firefighter', 'Marine', 'Engineer'],
         'probability' : 1,
 		'color' : 'yellow'
     },
