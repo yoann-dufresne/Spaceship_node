@@ -150,9 +150,9 @@ CommandCenter.prototype = {
 				
 				//
 				var r = this.rooms[i].box
-				r.style.width = room_width
-				r.style.top = y - (room_height/2)
-				r.style.left = x - (room_width/2)
+				r.style.width = room_width + "px";
+				r.style.top = y - (room_height/2) + "px";
+				r.style.left = x - (room_width/2) + "px";
 			}
         }
     },
