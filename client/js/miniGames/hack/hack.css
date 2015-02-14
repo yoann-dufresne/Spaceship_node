@@ -31,9 +31,12 @@
 }
 
 .hack-alphabet {
+  color:white;
+  background-color:black;
   font-style: italic;
   text-align: right;
   overflow: auto;
+  margin-left:130px;
 }
 
 .hack-submit {
