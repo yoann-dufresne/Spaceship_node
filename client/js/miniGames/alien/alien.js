@@ -1,4 +1,5 @@
 const NB_ALIEN_PER_EVENT = 5;
+const totalTime = 10;
 const NAMES = ["Roger", "Paul", "Plitrik", "Jurmidov", "Mazuk", "Timoléon", "Pritonk", "Zglorg", "$#@&!ù%", "Jaipadnom", "Bulgroz", "Zorglub", "Althazor", "RémiBocquet", "Pritwook", "Khandivlop", "Basshunter", '"); -- ', "Rhibox", "TotoLeHaricot", "Razhul", "Ruffux", "Grosmehz", "Sanchez", "Ramirez", "Thuiong", "Popopoy", "Yopopop"];
 
 /* Creation of an alien mini game
@@ -18,7 +19,7 @@ function AlienGame (frame, json) {
 		this.aliens = eval (json);
 	}
 
-	this.time = 3;
+	this.time = totalTime;
 }
 
 AlienGame.prototype = {
@@ -31,6 +32,7 @@ AlienGame.prototype = {
 	createDivs : function () {
 		this.blocs = {};
 		var decal = 0;
+		var self = this;
 
 		// Create a display for each alien.
 		this.aliens.forEach(function (alien) {
@@ -56,9 +58,9 @@ AlienGame.prototype = {
 			setTimeout(
 				function () {
 					// Add the animation property
-					ag.frame.appendChild(alienBlock);
+					self.frame.appendChild(alienBlock);
 					alienBlock.classList.add("animated");
-					ag.setTime(alien, alienBlock);
+					self.setTime(alien, alienBlock);
 				},
 				decal++*1000
 			);
@@ -66,9 +68,10 @@ AlienGame.prototype = {
 	},
 
 	setTime : function (alien, bloc) {
+		var self = this;
 		window.setTimeout(function () {
-			ag.frame.removeChild(bloc);
-		}, ag.time*995);
+			self.frame.removeChild(bloc);
+		}, self.time*997);
 	},
 
 	listen : function () {
@@ -80,19 +83,36 @@ AlienGame.prototype = {
 
 		this.keyFunction = document.onkeypress;
 		this.keys = new Array();
+
+		var self = this;
 		document.onkeypress = function (event) {
 			var c = String.fromCharCode(event.which);
-			ag.keys.push(c);
+			self.keys.push(c);
 
-			if (ag.keys.length > 10)
-				ag.keys.shift();
+			if (self.keys.length > 10)
+				self.keys.shift();
 			
+			// Creation of the name
 			var txt = "";
-			for (var i=0 ; i<ag.keys.length ; i++)
-				txt += ag.keys[i];
+			for (var i=0 ; i<self.keys.length ; i++)
+				txt += self.keys[i];
+			console.log ("Toto : " + txt);
 
+			// Name test for each alien
+			self.aliens.forEach( function (alien) {
+				if (alien.name.length <= txt.length) {
+					var name = txt.substring(txt.length-alien.name.length, txt.length);
+					if (name == alien.name) {
+						self.killAlien(alien);
+					}
+				}
+			});
 			console.log(txt);
 		};
+
+	},
+
+	killAlien : function (alien) {
 
 	}
 	
