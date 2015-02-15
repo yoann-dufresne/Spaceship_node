@@ -28,6 +28,8 @@ var fire = (function (){
   // private
   // -------
 
+  var imageFolder = 'js/miniGames/fire/images/'
+
   // -----
   // Coord
   // -----
@@ -457,7 +459,7 @@ var fire = (function (){
     object.Fire.prototype.type = object.Enum.FIRE
     object.Fire.prototype.color = 'red'
     object.Fire.prototype.imageObj = document.createElement('img')
-    object.Fire.prototype.imageObj.src = './images/objets/feu.png'
+    object.Fire.prototype.imageObj.src = imageFolder + 'objets/feu.png'
 
     // -----
     // Water
@@ -470,7 +472,7 @@ var fire = (function (){
     object.Water.prototype.type = object.Enum.WATER
     object.Water.prototype.color = 'blue'
     object.Water.prototype.imageObj = document.createElement('img')
-    object.Water.prototype.imageObj.src = './images/objets/eau.png'
+    object.Water.prototype.imageObj.src = imageFolder + 'objets/eau.png'
 
     return object
   })()
@@ -558,10 +560,10 @@ var fire = (function (){
 
   Renderer.prototype.loadImage = function(){
 
-    this.bgImage = loadImageHelper('./images/bg.png')
+    this.bgImage = loadImageHelper(imageFolder + 'bg.png')
 
-    var verticalJet = loadImageHelper('./images/tuyeau/eau-vertical.png')
-      , horizontalJet = loadImageHelper('./images/tuyeau/eau-horizontal.png')
+    var verticalJet = loadImageHelper(imageFolder + 'tuyeau/eau-vertical.png')
+      , horizontalJet = loadImageHelper(imageFolder + 'tuyeau/eau-horizontal.png')
 
     this.waterJetImages = {}
     this.waterJetImages[DirectionEnum.NORTH] = verticalJet
@@ -570,19 +572,19 @@ var fire = (function (){
     this.waterJetImages[DirectionEnum.EAST] = horizontalJet
 
     this.headImages = {}
-    this.headImages[DirectionEnum.NORTH] = loadImageHelper('./images/tuyeau/tete-haut.png')
-    this.headImages[DirectionEnum.SOUTH] = loadImageHelper('./images/tuyeau/tete-bas.png')
-    this.headImages[DirectionEnum.WEST] = loadImageHelper('./images/tuyeau/tete-gauche.png')
-    this.headImages[DirectionEnum.EAST] = loadImageHelper('./images/tuyeau/tete-droite.png')
+    this.headImages[DirectionEnum.NORTH] = loadImageHelper(imageFolder + 'tuyeau/tete-haut.png')
+    this.headImages[DirectionEnum.SOUTH] = loadImageHelper(imageFolder + 'tuyeau/tete-bas.png')
+    this.headImages[DirectionEnum.WEST] = loadImageHelper(imageFolder + 'tuyeau/tete-gauche.png')
+    this.headImages[DirectionEnum.EAST] = loadImageHelper(imageFolder + 'tuyeau/tete-droite.png')
 
-    this.tailImage = loadImageHelper('./images/tuyeau/queue-tuyeau.png')
+    this.tailImage = loadImageHelper(imageFolder + 'tuyeau/queue-tuyeau.png')
 
-    var bodyHorizontal = loadImageHelper('./images/tuyeau/tuyeau-horizontal.png')
-      , bodyVertical = loadImageHelper('./images/tuyeau/tuyeau-vertical.png')
-      , bodySouthEast = loadImageHelper('./images/tuyeau/arrondi-droite-bas.png')
-      , bodyNorthEast = loadImageHelper('./images/tuyeau/arrondi-droite-haut.png')
-      , bodySouthWest = loadImageHelper('./images/tuyeau/arrondi-gauche-bas.png')
-      , bodyNorthWest = loadImageHelper('./images/tuyeau/arrondi-gauche-haut.png')
+    var bodyHorizontal = loadImageHelper(imageFolder + 'tuyeau/tuyeau-horizontal.png')
+      , bodyVertical = loadImageHelper(imageFolder + 'tuyeau/tuyeau-vertical.png')
+      , bodySouthEast = loadImageHelper(imageFolder + 'tuyeau/arrondi-droite-bas.png')
+      , bodyNorthEast = loadImageHelper(imageFolder + 'tuyeau/arrondi-droite-haut.png')
+      , bodySouthWest = loadImageHelper(imageFolder + 'tuyeau/arrondi-gauche-bas.png')
+      , bodyNorthWest = loadImageHelper(imageFolder + 'tuyeau/arrondi-gauche-haut.png')
 
 
     this.bodyImages = {}
@@ -613,6 +615,7 @@ var fire = (function (){
     this.canvas = document.createElement('canvas')
     this.canvas.width = this.width
     this.canvas.height = this.height
+    this.canvas.className = 'fire-canvas'
     this.core.node.appendChild(this.canvas)
     this.context = this.canvas.getContext('2d')
   }
