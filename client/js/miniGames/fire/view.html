@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="./hack.css" />
+
+    <script src='./hack.js'></script>
+
+    <title>Fire mini game</title>
+</head>
+<body>
+
+    <div id='game-container'
+        style='width:600px; height:400px; border: 0px solid; margin: 0 auto;'>
+    </div>
+
+    <script type="text/javascript">
+        hack.start({
+            node: document.getElementById('game-container'),
+            callback: function(){ alert('fire game ended'); }
+        });
+    </script>
+</body>
+</html>
