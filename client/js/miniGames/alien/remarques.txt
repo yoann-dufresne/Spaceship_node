@@ -1,0 +1,17 @@
+Je viens de tester le jeu et j'ai remaqué plusieurs problèmes :
+
+
+- Si tu fais une erreur et que tu veux effacer, ça efface le premier carractère de la chaine de carractère et non le dernier tapé.
+
+
+- Pour les carractères spéciaux, il doit y avoir un problème d'encodage, ils n'apparaissent pas correctement et c'est donc impossible de les régler. 
+>>> Je veux bien retravailler la liste de noms si besoin en supprimant tous les carractères spéciaux
+
+
+-J'ai remarqué qu'il était facile de changer le nombre d'aliens qui passaient j'ai donc essayé plusieurs niveaux. Du coup :
+> les aliens se chevauchent beaucoup ce serait bien de pouvoir les espacer un peu plus sur la hauteur et dans le temps.
+> je pense que ça pourrait être bien de ralentir un tout petit peu la vitesse de passage parce que ca va quand même vite pour quelqu'un qui connait pas le clavier par coeur c'est quasi impossible.
+> est-ce qu'il est possible de mettre un fond noir pour les noms des aliens à la place du transparent et éventuellement un cadre car quand deux textes se superposent c'est illisible.
+
+
+Enfin actuellement 3 Aliens ça passe assez bien, 4 une fois sur deux et 5 quasi impossible. Du coup en fonction de ce qui peut être fait pour améliorer un peu la lisibilité je pense que 4 ou 5 alien par mini jeu c'est bien si on veut que ca reste faisable et pas trop long.

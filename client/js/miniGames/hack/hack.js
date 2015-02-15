@@ -101,7 +101,7 @@ var hack = (function(){
         var innerHTML = " \
             <div class='hack-wrapper'> \
                 <div class='hack-input-block'> \
-                    <p class='hack-alphabet'>indice: "+alphabetHTML+"</p> \
+                    <p class='hack-alphabet'>Possibilités: "+alphabetHTML+"</p> \
                     <input id='hack-input' type='text' class='hack-input hack-error'></input> \
                     <button id='hack-submit' class='hack-submit'>↵</button> \
                 </div> \

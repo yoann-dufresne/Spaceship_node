@@ -1,0 +1,9 @@
+Le dossier objets contient le feu et l'eau que le serpent doit récupérer.
+
+Le dossier tuyau contient les différentes images constituant le tuyeau:
+-queue
+-tuyau droits (horizontal/vertical)
+-tuyau arrondi (4 sens)
+-tête (4 sens)
+-recerve d'eau (2 sens)
+

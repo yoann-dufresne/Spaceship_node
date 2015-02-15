@@ -1,4 +1,18 @@
 
+#frame {
+  background-image:url("salle_alien.png");
+  background-size: 100% 100%;
+}
+
+#frame #alienText {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  font-size: 32px;
+  color: red;
+  bottom: 0%;
+}
+
 #frame .alien {
 	left:5%;
   height: 50%;
@@ -6,6 +20,7 @@
 
 #frame .alienImg {
   display : block;
+  border: none;
   height : 80%;
   bottom : 0%;
 }

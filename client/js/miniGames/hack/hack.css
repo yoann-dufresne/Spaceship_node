@@ -15,7 +15,7 @@
   margin: 0 auto;
   height: 100%;
   width: 100%;
-  background-color: white;
+  background-image:url("bg.png");
   color: black;
   border-spacing: 0;
   border: solid;
@@ -31,9 +31,12 @@
 }
 
 .hack-alphabet {
+  color:white;
+  background-color:black;
   font-style: italic;
   text-align: right;
   overflow: auto;
+  margin-left:130px;
 }
 
 .hack-submit {
