@@ -118,6 +118,7 @@ var hack = (function(){
         game.inputElement = document.getElementById('hack-input');
         game.submitElement = document.getElementById('hack-submit');
         game.tableElement = document.getElementById('hack-table');
+		document.getElementById('hack-input').focus();
     }
 
     // generate the secret word. Set it directly to 'game.secret'.

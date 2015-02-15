@@ -59,6 +59,7 @@ ROOM = {
             },
             'disabled' : {
             }
-        }
+        },
+        'immune' : true
     }
 }

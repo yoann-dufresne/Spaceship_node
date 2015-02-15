@@ -7,6 +7,7 @@ body {
 #screen {
     width : 100%;
     height : 100%;
+	position : absolute;
 }
 
 .img{
@@ -169,19 +170,11 @@ body {
     padding-left: 8.8%;
 }
 
-#end {
-    display:none;
-    position:absolute;
-    width:80%;
-    height:95%;
-    top:0%;
-    right:5%;
-    padding: 2.5vh 5vw;
-    background: rgba(50,50,50,0.95);
-    z-index : 100;
+#gameOver, #victory {
+	display : none;
 }
 
-#start {
+#start, #gameOver, #victory {
     position:absolute;
     width:30%;
     top:40%;

@@ -107,6 +107,8 @@ Room.prototype = {
 		for (var i in this.data.event){
 			if (this.data.event[i].room_id == this.roomID){
 				this.event = i;
+				this.event_id = this.data.event[i].id;
+				this.event_type = this.data.event[i].type;
 			}
 		}
 		
@@ -131,9 +133,27 @@ Room.prototype = {
 			return
         }
         
-        $("#room_event").html( this.data.event[this.event].type )
+        $("#room_event").html( this.data.event[this.event].type);
         var callback = function() { self.solve() }//double closure ?
-        this.g = new MiniGames("game",3, callback)        
+        console.log(this.event_type)
+        switch(this.event_type) {
+			case "Fire":
+				this.g = new MiniGames("game", callback);  
+				break;
+			case "Alien":
+				this.g = new MiniGames("game", callback);  
+				break;
+			case "Hack":
+				hack.start({
+					node: document.getElementById('game'),
+					callback: callback
+				});
+				break;
+			default:
+				this.g = new MiniGames("game", callback);  
+				break;
+		}
+           
     },
     
     solve :function () {
@@ -141,7 +161,7 @@ Room.prototype = {
         $("#game").html("")
 		var args = {
 			'player_id' : this.player_id,
-			'event_id' : this.data.event[this.event].id,
+			'event_id' : this.event_id,
 			'command': 'solve'
 		}
 		this.comunicate.askServer('/event', args);
@@ -217,8 +237,8 @@ Room.prototype = {
  * id => la fenetre dans laquelle les jeux s'affiche
  * n  => le nombre de jeux a résoudre
  */
-function MiniGames (id, n, callback) {
-	this.n=n;
+function MiniGames (id, callback) {
+	this.n=3;
 	this.id=id;
     this.callback = callback;
 	this.gameList = [Game1,Game2,Game3]
@@ -436,6 +456,4 @@ Game3.prototype = {
     
 }
 
-
-//var game = new MiniGames("game",2)
 var room = new Room();

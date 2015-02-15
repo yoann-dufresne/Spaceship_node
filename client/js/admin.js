@@ -10,7 +10,8 @@ function Admin () {
         oxygen: document.getElementById('oxygen'),
         deltaOxygen: document.getElementById('delta_oxygen'),
         currentSpeed: document.getElementById('current_speed'),
-        timeLeft: document.getElementById('time_left')
+        timeLeft: document.getElementById('time_left'),
+        status: document.getElementById('game_status')
     };
 }
 
@@ -101,6 +102,7 @@ Admin.prototype.displayStatus = function () {
     this.elements.oxygen.textContent = this.data.oxygen; 
     this.elements.timeLeft.textContent = this.data.time_left; 
     this.elements.currentSpeed.textContent = this.data.current_speed; 
+	this.elements.status.textContent = this.data.status; 
 }
 
 Admin.prototype.addRoom = function (data) {
