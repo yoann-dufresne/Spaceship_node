@@ -40,6 +40,7 @@ CommandCenter.prototype = {
 				e.preventDefault();
 				$("#start").css('display','none');
 				//admin.refreshManageTools ({"status":"start"});
+				self.comunicate.askServer("/spaceship", {"command":"start"});
 				document.onkeypress = function () {};
 			};
 		};

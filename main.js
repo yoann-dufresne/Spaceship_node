@@ -18,10 +18,6 @@ spaceship.addPlayer('Engineer')
 spaceship.addPlayer('Marine')
 spaceship.addPlayer('Firefighter')
 
-spaceship.start()
-
-//console.log(spaceship.toJson())
-
 //simple server for client static files (everything in /client is visible)
 var app = express();
 app.use(express.static(__dirname + '/client'));
