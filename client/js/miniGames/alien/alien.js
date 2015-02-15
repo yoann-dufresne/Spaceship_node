@@ -13,6 +13,7 @@ function AlienGame (frameId, callback, json) {
 	this.frame = document.getElementById(frameId);
 	this.frame.classList.add("alienFrame");
 	this.callback = callback;
+	this.ended = false;
 
 	// Create alien objects
 	if (json == undefined) {
@@ -111,6 +112,8 @@ AlienGame.prototype = {
 		window.setTimeout(function () {
 			$(bloc).remove();
 			delete that.blocs[alien.id];
+
+			console.log(Object.keys(that.blocs).length);
 			if (Object.keys(that.blocs).length == 0 && that.aliens.length > 0)
 				that.callCallback();
 		}, that.time*997);
@@ -131,14 +134,13 @@ AlienGame.prototype = {
 			var c = String.fromCharCode(event.which);
 			that.keys.push(c);
 
-			if (that.keys.length > 10)
+			if (that.keys.length > that.namesLength)
 				that.keys.shift();
 			
 			// Creation of the name
 			var txt = "";
 			for (var i=0 ; i<that.keys.length ; i++)
 				txt += that.keys[i];
-			console.log ("Toto : " + txt);
 			that.p.innerHTML = txt;
 
 			// Name test for each alien
@@ -150,7 +152,6 @@ AlienGame.prototype = {
 					}
 				}
 			});
-			console.log(txt);
 		};
 
 	},
@@ -158,16 +159,20 @@ AlienGame.prototype = {
 	killAlien : function (alien) {
 		this.aliens.splice(this.aliens.indexOf(alien), 1);
 		$(this.blocs[alien.id]).remove();
+		delete this.blocs[alien.id];
 
-		if (this.aliens.length == 0)
+		if (Object.keys(this.blocs).length == 0 || this.aliens.length == 0)
 			this.callCallback();
 	},
 
 	callCallback : function () {
-		this.frame.innerHTML = "";
-		this.frame.classList.remove("alienFrame");
-		document.onkeypress = this.keyFunction;
-		this.callback(JSON.stringify(this.aliens));
+		if (!this.ended) {
+			this.ended = true;
+			this.frame.innerHTML = "";
+			this.frame.classList.remove("alienFrame");
+			document.onkeypress = this.keyFunction;
+			this.callback(JSON.stringify(this.aliens));
+		}
 	}
 	
 }
