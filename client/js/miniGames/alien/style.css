@@ -1,10 +1,17 @@
 
-#frame {
+.alienFrame {
   background-image:url("salle_alien.png");
   background-size: 100% 100%;
 }
 
-#frame #alienText {
+.alienFrame #doors {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 11;
+}
+
+.alienFrame #alienText {
   position: absolute;
   width: 100%;
   text-align: center;
@@ -13,53 +20,24 @@
   bottom: 0%;
 }
 
-#frame .alien {
+.alienFrame .alien {
 	left:5%;
-  height: 50%;
+  width: 15%;
 }
 
-#frame .alienImg {
+.alienFrame .alienImg {
   display : block;
   border: none;
-  height : 80%;
+  width : 100%;
   bottom : 0%;
 }
 
-#frame p {
-  display: inline-block;
-  color: white;
-  margin: 0px;
+.alienFrame .alien p {
+  width: 100%;
   text-align: center;
-}
-
-.animated {
-  position: absolute;
-  -webkit-animation: linear alienBox 10s 1;
-  -moz-animation: linear alienBox 10s 1;
-  animation: linear alienBox 10s 1;
-}
-
-@-webkit-keyframes alienBox {
-  0% {
-    left: 5%;
-  }
-  100% {
-    left: 90%;
-  }
-}
-@-moz-keyframes alienBox {
-  0% {
-    left: 5%;
-  }
-  100% {
-    left: 90%;
-  }
-}
-@keyframes 'alienBox' {
-  0% {
-    left: 5%;
-  }
-  100% {
-    left: 90%;
-  }
+  color: white;
+  background-color: black;
+  border: 1px white solid;
+  border-radius: 5px;
+  padding: 3px;
 }

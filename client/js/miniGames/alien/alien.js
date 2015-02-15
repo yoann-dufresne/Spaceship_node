@@ -1,5 +1,7 @@
-const NB_ALIEN_PER_EVENT = 1;
-const totalTime = 10;
+const NB_ALIEN_PER_EVENT = 10;
+const totalTime = 30;
+const maxImg = 20;
+const maxMoves = 5;
 const NAMES = ["Roger", "Paul", "Plitrik", "Jurmidov", "Mazuk", "Timoléon", "Pritonk", "Zglorg", "$#@&!ù%", "Jaipadnom", "Bulgroz", "Zorglub", "Althazor", "RémiBocquet", "Pritwook", "Khandivlop", "Basshunter", '"); -- ', "Rhibox", "TotoLeHaricot", "Razhul", "Ruffux", "Grosmehz", "Sanchez", "Ramirez", "Thuiong", "Popopoy", "Yopopop","Mantarik","Rakatakata","FlortZ","Yarkixu","Xiwouku","MohamedAlien","kytria","Traomister","Gnorkol","DzaLaKrte","jeVpRdre","Mouahaha","Gorukudrik","Krofniam","rRrRrRr","Thymnokur","Ertko","Gtaloy","Zafalisto","Rfarokàé","Typhirinux",")-O-(","123465789","Ztheurx"];
 
 var alienId = 0;
@@ -9,6 +11,7 @@ var alienId = 0;
 */
 function AlienGame (frameId, callback, json) {
 	this.frame = document.getElementById(frameId);
+	this.frame.classList.add("alienFrame");
 	this.callback = callback;
 
 	// Create alien objects
@@ -28,6 +31,13 @@ function AlienGame (frameId, callback, json) {
 AlienGame.prototype = {
 
 	init : function () {
+		// Doors on the top
+		var doors = document.createElement("img");
+		doors.src = "salle_alien_up.png";
+		doors.id = "doors";
+		this.frame.appendChild(doors);
+		
+		// Add user text	
 		this.p = document.createElement("p");
 		this.p.id = "alienText";
 		this.frame.appendChild(this.p);
@@ -48,8 +58,6 @@ AlienGame.prototype = {
 			alienBlock.classList.add("alien");
 			// Offset is to calculate the gap between the bottom of the door and the alien position
 			var layer = Math.floor(Math.random()*100);
-			var offset = layer/10;
-			alienBlock.style.top = "" + (30 + offset) + "%";
 
 			// Add the name of the alien
 			var txt = document.createElement("p");
@@ -64,16 +72,38 @@ AlienGame.prototype = {
 
 			that.blocs[alien.id] = alienBlock;
 
-			setTimeout(
+			window.setTimeout(
 				function () {
 					// Add the animation property
 					that.frame.appendChild(alienBlock);
-					alienBlock.classList.add("animated");
+					that.addAnimation(alienBlock);
 					that.setTime(alien, alienBlock);
 				},
-				decal++*1000
+				decal++*2000
 			);
 		});
+	},
+
+	addAnimation : function (bloc) {
+		bloc.style.position = "absolute";
+		
+		// Webkit
+		bloc.style["-webkit-animation-timing-function"] = "linear";
+		bloc.style["-webkit-animation-duration"] = "" + totalTime + "s";
+		bloc.style["-webkit-animation-iteration-count"] = "1";
+		bloc.style["-webkit-animation-name"] = "alienBox" + Math.ceil(Math.random()*maxMoves);
+
+		// Mozilla
+		bloc.style["-moz-animation-timing-function"] = "linear";
+		bloc.style["-moz-animation-duration"] = "" + totalTime + "s";
+		bloc.style["-moz-animation-iteration-count"] = "1";
+		bloc.style["-moz-animation-name"] = "alienBox" + Math.ceil(Math.random()*maxMoves);
+
+		// Classic animation
+		bloc.style["animation-timing-function"] = "linear";
+		bloc.style["animation-duration"] = "" + totalTime + "s";
+		bloc.style["animation-iteration-count"] = "1";
+		bloc.style["animation-name"] = "alienBox" + Math.ceil(Math.random()*maxMoves);
 	},
 
 	setTime : function (alien, bloc) {
@@ -81,8 +111,8 @@ AlienGame.prototype = {
 		window.setTimeout(function () {
 			$(bloc).remove();
 			delete that.blocs[alien.id];
-			if (Object.keys(that.blocs).length == 0)
-				that.callback(JSON.stringify(that.aliens));
+			if (Object.keys(that.blocs).length == 0 && that.aliens.length > 0)
+				that.callCallback();
 		}, that.time*997);
 	},
 
@@ -130,7 +160,14 @@ AlienGame.prototype = {
 		$(this.blocs[alien.id]).remove();
 
 		if (this.aliens.length == 0)
-			this.callback(JSON.stringify(this.aliens));
+			this.callCallback();
+	},
+
+	callCallback : function () {
+		this.frame.innerHTML = "";
+		this.frame.classList.remove("alienFrame");
+		document.onkeypress = this.keyFunction;
+		this.callback(JSON.stringify(this.aliens));
 	}
 	
 }
@@ -139,10 +176,11 @@ function Alien (name) {
 	this.id = alienId++;
 	this.name = name;
 
-	var idx = Math.ceil(Math.random()*20);
+	var idx = Math.ceil(Math.random()*maxImg);
 	this.img = "images/alien" + idx + ".png";
 }
 
 
+//var json = '[{"id":1,"name":"RémiBocquet","img":"images/alien14.png"},{"id":2,"name":"Jurmidov","img":"images/alien3.png"},{"id":3,"name":"Typhirinux","img":"images/alien19.png"},{"id":4,"name":"Rakatakata","img":"images/alien13.png"},{"id":6,"name":"MohamedAlien","img":"images/alien5.png"},{"id":7,"name":"Thymnokur","img":"images/alien5.png"}]';
 var ag = new AlienGame("frame", function(json) {alert(json)});
 ag.init();
