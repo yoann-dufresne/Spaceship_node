@@ -73,7 +73,7 @@
 .hack-table-block {
   background-color: darkgrey;
   overflow: auto;
-  height: 300px;
+  height: calc(100% - 100px);
   border: 2px solid;
   border-radius: 5px;
   width: 80%;
