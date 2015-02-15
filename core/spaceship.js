@@ -24,6 +24,7 @@ Spaceship.prototype = {
 
     //remet le vaisseau a neuf mais ne modifie pas les salles/joueurs
     reset : function () {
+		this.stop();
         console.log( "> reset spaceship" );
         this.oxygen = 100;
         this.time_left = this.initialTimeLeft;
