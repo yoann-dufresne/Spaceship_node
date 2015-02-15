@@ -20,6 +20,7 @@ Room.prototype = {
         this.speed = 0;
         this.status = spec.DEFAULT_STATUS;
         this.available = true;
+		if (spec.ROOM[this.type].immune) this.available = false;
     },
     
     changeStatus: function (status) {
