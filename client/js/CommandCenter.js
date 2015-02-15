@@ -30,21 +30,7 @@ CommandCenter.prototype = {
             self.resize()
         };
 		
-        document.onkeypress = function (e) {
-			e = e || window.event;
-			
-			var key = e.keyCode;
-			if (key==0) key = e.which;
-				
-			if (key == 13){
-				e.preventDefault();
-				$("#start").css('display','none');
-				//admin.refreshManageTools ({"status":"start"});
-				self.comunicate.askServer("/spaceship", {"command":"start"});
-				document.onkeypress = function () {};
-			};
-		};
-		
+		this.start();
         this.resize();
         this.update();
 		
@@ -188,6 +174,7 @@ CommandCenter.prototype = {
         this.update_event();
         this.update_goal();
         this.update_oxygen();      
+		this.checkStatus();
     },
     
     /* 
@@ -211,9 +198,29 @@ CommandCenter.prototype = {
 		}
 		
     },
+	
+	checkStatus : function () {
+		if (this.data.status == 'gameOver') { 
+			$("#gameOver").css('display','block');
+			//this.end():
+		}
+	},
     
     start : function(){
-
+		var self = this;
+		document.onkeypress = function (e) {
+			e = e || window.event;
+			
+			var key = e.keyCode;
+			if (key==0) key = e.which;
+				
+			if (key == 13){
+				e.preventDefault();
+				$("#start").css('display','none');
+				self.comunicate.askServer("/spaceship", {"command":"start"});
+				document.onkeypress = function () {};
+			};
+		};
     },
     
     end : function() {
