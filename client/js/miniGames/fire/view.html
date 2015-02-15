@@ -5,9 +5,10 @@
 
     <link rel="stylesheet" href="./hack.css" />
 
-    <script src='./hack.js'></script>
+    <script src='./fire.js'></script>
 
     <title>Fire mini game</title>
+
 </head>
 <body>
 
@@ -16,9 +17,16 @@
     </div>
 
     <script type="text/javascript">
-        hack.start({
+        fire.start({
             node: document.getElementById('game-container'),
-            callback: function(){ alert('fire game ended'); }
+            callback: function(){ alert('fire game ended'); },
+            canvasWidth: 800,
+            canvasHeight: 700,
+            mapWidth: 30,
+            mapWidth: 20,
+            snakeSize: 3,
+            waterStock: 3,
+            scoreToWin: 11,
         });
     </script>
 </body>
