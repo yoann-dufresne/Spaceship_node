@@ -595,14 +595,11 @@ var fire = (function (){
 
 
     // load the images for the water jet
-    var verticalJet = loadImageHelper(imageFolder + 'tuyeau/eau-vertical.png')
-      , horizontalJet = loadImageHelper(imageFolder + 'tuyeau/eau-horizontal.png')
-
     this.waterJetImages = {}
-    this.waterJetImages[DirectionEnum.NORTH] = verticalJet
-    this.waterJetImages[DirectionEnum.SOUTH] = verticalJet
-    this.waterJetImages[DirectionEnum.WEST] = horizontalJet
-    this.waterJetImages[DirectionEnum.EAST] = horizontalJet
+    this.waterJetImages[DirectionEnum.NORTH] = loadImageHelper(imageFolder + 'tuyeau/water-up.png')
+    this.waterJetImages[DirectionEnum.SOUTH] = loadImageHelper(imageFolder + 'tuyeau/water-bottom.png')
+    this.waterJetImages[DirectionEnum.WEST] = loadImageHelper(imageFolder + 'tuyeau/water-left.png')
+    this.waterJetImages[DirectionEnum.EAST] = loadImageHelper(imageFolder + 'tuyeau/water-right.png')
 
     // load the images for the head of the snake
     this.headImages = {}
