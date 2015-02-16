@@ -537,7 +537,7 @@ var fire = (function (){
 
     do {
       coord.x = Math.floor(Math.random() * this.core.map.width)
-      coord.y = Math.floor(Math.random() * this.core.map.width)
+      coord.y = Math.floor(Math.random() * this.core.map.height)
       cnt += 1
 
     } while (cnt < 20 && (this.core.map.get(coord) !== null ||
