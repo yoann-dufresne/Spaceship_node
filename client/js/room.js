@@ -1,4 +1,4 @@
-
+const blinkProbability = 0.1;
 
 function release_keyboard(){
     document.onkeydown = function (e) { }
@@ -22,6 +22,12 @@ Room.prototype = {
     init : function () {
         var self = this;
 		this.comunicate = new ServerCommunication();
+
+        var img = document.createElement("img");
+        self.imgPara = img;
+        img.src = "img/parasites.jpg";
+        img.id = "parasites";
+        document.getElementById("mainFrame").appendChild(img);
         
 		setInterval(function(){self.update()}, 1000);
 	},
@@ -33,6 +39,13 @@ Room.prototype = {
 			    function (spaceshipData) {
 					self.data = JSON.parse(spaceshipData);
 					self.display_room_selector();
+
+                    // Blink test
+                    if (self.data.room[4].status == "disabled")
+                        if (Math.random() <= blinkProbability)
+                            self.imgPara.style.opacity = 1;
+                        else
+                            self.imgPara.style.opacity = 0;
 			    });
 	},
     
