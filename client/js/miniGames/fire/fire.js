@@ -15,9 +15,21 @@ var fire = (function (){
   //   - canvasWidth, canvasHeight: maximum size of the canvas (optional)
   //   - mapWidth, mapHeight: size of the map (optional)
   //   - snakeSize: size of the snake (without the water part) (optional)
-  //   - waterStock: the starting water stock of the snake
-  //   - scoreToWin: the number of fire to turn off to win the game
+  //   - waterStock: the starting water stock of the snake (optional)
+  //   - scoreToWin: the number of fire to turn off to win the game (optional)
+  //   - interval: (optional) delay between each update (move, calcul, refresh)
+  //   - fireSpawnProba: (optional) between 0 and 1, the probability that a fire spawn at each update
+  //   - waterSpawnProba: (optional) between 0 and 1, the probability that a water spawn at each update
+  //   - imageFolder: (optional if inclued from client/) the path of the images folder
   fire.start = function(options){
+
+    // lookup if the image folder is custom
+    if (typeof options.imageFolder !== 'undefined'){
+      imageFolder = options.imageFolder
+      if (imageFolder[imageFolder.length - 1] !== '/'){
+        imageFolder += '/'
+      }
+    }
 
     var core = new Core(options)
 
@@ -28,7 +40,8 @@ var fire = (function (){
   // private
   // -------
 
-  var imageFolder = 'js/miniGames/fire/images/'
+  // this is global ... contains the default value, can be overided
+  var imageFolder = 'js/miniGames/fire/images/' 
 
   // -----
   // Coord
@@ -87,14 +100,18 @@ var fire = (function (){
   // ----------------
   // Defaults options
   // ----------------
-  var DEFAULT_SNAKE_SIZE = 5
-    , DEFAULT_CANVAS_WIDTH = 600
-    , DEFAULT_CANVAS_HEIGHT = 400
-    , DEFAULT_MAP_WIDTH = 20
-    , DEFAULT_MAP_HEIGHT = 20
-    , DEFAULT_WATER_STOCK = 3
-    , DEFAULT_SNAKE_DIRECTION = DirectionEnum.NORTH
-    , DEFAULT_SCORE_TO_WIN = 10
+  const DEFAULT_SNAKE_SIZE = 5
+      , DEFAULT_CANVAS_WIDTH = 600
+      , DEFAULT_CANVAS_HEIGHT = 400
+      , DEFAULT_MAP_WIDTH = 20
+      , DEFAULT_MAP_HEIGHT = 20
+      , DEFAULT_WATER_STOCK = 3
+      , DEFAULT_SNAKE_DIRECTION = DirectionEnum.NORTH
+      , DEFAULT_SCORE_TO_WIN = 10
+      , DEFAULT_INTERVAL = 75
+      , DEFAULT_FIRE_SPAWN_PROBA = 0.05
+      , DEFAULT_WATER_SPAWN_PROBA = 0.03
+
 
   // return value if value is not undefined, else default
   function definedElse(value, def){
@@ -134,8 +151,12 @@ var fire = (function (){
     })
 
     this.generator = new Generator({
-      core: this
+      core: this,
+      waterSpawnProba: definedElse(options.waterSpawnProba, DEFAULT_WATER_SPAWN_PROBA),
+      fireSpawnProba: definedElse(options.fireSpawnProba, DEFAULT_FIRE_SPAWN_PROBA)      
     })
+
+    this.intervalDelay = definedElse(options.interval, DEFAULT_INTERVAL)
 
     // a buffer that store the last keydown event that have to be executed
     this.nextHandler = null
@@ -171,7 +192,7 @@ var fire = (function (){
     this.intervalId = setInterval(function(){
       that.update()
       that.renderer.draw()
-    }, 75)
+    }, this.intervalDelay)
   }
 
   Core.prototype.update = function(){
@@ -445,7 +466,6 @@ var fire = (function (){
     }
     object.Object.prototype.type = undefined
     object.Object.prototype.color = undefined
-    object.Object.prototype.imageSrc = undefined
     object.Object.prototype.imageObj = undefined
 
     // ----
@@ -458,8 +478,6 @@ var fire = (function (){
     object.Fire.prototype = Object.create(object.Object.prototype)
     object.Fire.prototype.type = object.Enum.FIRE
     object.Fire.prototype.color = 'red'
-    object.Fire.prototype.imageObj = document.createElement('img')
-    object.Fire.prototype.imageObj.src = imageFolder + 'objets/feu.png'
 
     // -----
     // Water
@@ -471,8 +489,16 @@ var fire = (function (){
     object.Water.prototype = Object.create(object.Object.prototype)
     object.Water.prototype.type = object.Enum.WATER
     object.Water.prototype.color = 'blue'
-    object.Water.prototype.imageObj = document.createElement('img')
-    object.Water.prototype.imageObj.src = imageFolder + 'objets/eau.png'
+
+    // load the images for all the kind of objects
+    object.loadImages = function(){
+
+      object.Fire.prototype.imageObj = document.createElement('img')
+      object.Fire.prototype.imageObj.src = imageFolder + 'objets/feu.png'
+
+      object.Water.prototype.imageObj = document.createElement('img')
+      object.Water.prototype.imageObj.src = imageFolder + 'objets/eau.png'
+    } 
 
     return object
   })()
@@ -483,8 +509,12 @@ var fire = (function (){
 
   // options :
   //  - core
+  //  - waterSpawnProba
+  //  - fireSpawnProba
   function Generator(options){
     this.core = options.core
+    this.waterSpawnProba = options.waterSpawnProba
+    this.fireSpawnProba = options.fireSpawnProba
   }
 
   // called at each update() to generate fire and water
@@ -492,11 +522,11 @@ var fire = (function (){
 
     var draw = Math.random()
 
-    if (draw < 0.03){
+    if (draw < this.waterSpawnProba){
       this.generateWater();
     }
 
-    if (draw > 0.95){
+    if (draw > 1 - this.fireSpawnProba){
       this.generateFire();
     }
   }
@@ -560,8 +590,11 @@ var fire = (function (){
 
   Renderer.prototype.loadImage = function(){
 
+    // load the background
     this.bgImage = loadImageHelper(imageFolder + 'bg.png')
 
+
+    // load the images for the water jet
     var verticalJet = loadImageHelper(imageFolder + 'tuyeau/eau-vertical.png')
       , horizontalJet = loadImageHelper(imageFolder + 'tuyeau/eau-horizontal.png')
 
@@ -571,14 +604,17 @@ var fire = (function (){
     this.waterJetImages[DirectionEnum.WEST] = horizontalJet
     this.waterJetImages[DirectionEnum.EAST] = horizontalJet
 
+    // load the images for the head of the snake
     this.headImages = {}
     this.headImages[DirectionEnum.NORTH] = loadImageHelper(imageFolder + 'tuyeau/tete-haut.png')
     this.headImages[DirectionEnum.SOUTH] = loadImageHelper(imageFolder + 'tuyeau/tete-bas.png')
     this.headImages[DirectionEnum.WEST] = loadImageHelper(imageFolder + 'tuyeau/tete-gauche.png')
     this.headImages[DirectionEnum.EAST] = loadImageHelper(imageFolder + 'tuyeau/tete-droite.png')
 
+    // load the tail image of the snake
     this.tailImage = loadImageHelper(imageFolder + 'tuyeau/queue-tuyeau.png')
 
+    // load the images for the snake body : straight and curve
     var bodyHorizontal = loadImageHelper(imageFolder + 'tuyeau/tuyeau-horizontal.png')
       , bodyVertical = loadImageHelper(imageFolder + 'tuyeau/tuyeau-vertical.png')
       , bodySouthEast = loadImageHelper(imageFolder + 'tuyeau/arrondi-droite-bas.png')
@@ -607,6 +643,9 @@ var fire = (function (){
     this.bodyImages[DirectionEnum.WEST][DirectionEnum.SOUTH] = bodySouthEast
     this.bodyImages[DirectionEnum.SOUTH][DirectionEnum.EAST] = bodyNorthEast
     this.bodyImages[DirectionEnum.EAST][DirectionEnum.SOUTH] = bodySouthWest
+
+    // load the images for the objects
+    object.loadImages()
   }
 
   // called by the Renderer constructor to build the canvas
