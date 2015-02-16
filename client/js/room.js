@@ -134,8 +134,8 @@ Room.prototype = {
         }
         
         $("#room_event").html( this.data.event[this.event].type);
-        var callback = function() { self.solve() }//double closure ?
-        console.log(this.event_type)
+        var callback = function(arg) { self.solve(arg) }//double closure ?
+
         switch(this.event_type) {
 			case "Fire":
                 var node = document.getElementById('game')
@@ -153,7 +153,7 @@ Room.prototype = {
                 }); 
 				break;
 			case "Alien":
-				this.g = new MiniGames("game", callback);  
+				this.g = new AlienGame("game", callback, this.data.event[this.event].arg);
 				break;
 			case "Hack":
 				hack.start({
@@ -168,7 +168,7 @@ Room.prototype = {
            
     },
     
-    solve :function () {
+    solve :function (arg) {
         $("#room_event").html("YEAHHHHH!!!")
         $("#game").html("")
 		var args = {
@@ -176,6 +176,11 @@ Room.prototype = {
 			'event_id' : this.event_id,
 			'command': 'solve'
 		}
+		
+		if (typeof arg != 'undefined'){
+			args["arg"]=arg;
+		}
+		
 		this.comunicate.askServer('/event', args);
         this.close()
         
