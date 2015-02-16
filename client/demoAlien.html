@@ -1,12 +1,15 @@
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" media="screen" href="style.css">
-		<link rel="stylesheet" type="text/css" media="screen" href="moves.css">
+		<link rel="stylesheet" type="text/css" media="screen" href="js/miniGames/alien/style.css">
+		<link rel="stylesheet" type="text/css" media="screen" href="js/miniGames/alien/moves.css">
 	</head>
 	<body>
 		<div id="frame" style="width:60%;height:60%;margin:auto;position:relative"></div>
 	</body>
 
-	<script type="text/javascript" src="../../lib/jquery-1.9.1.min.js"></script>
-	<script src="alien.js"></script>
+	<script type="text/javascript" src="js/lib/jquery-1.9.1.min.js"></script>
+	<script src="js/miniGames/alien/alien.js"></script>
+	<script type="text/javascript">
+		var ag = new AlienGame("frame", function(json) {alert(json)});
+	</script>
 </html>
