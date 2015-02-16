@@ -127,11 +127,20 @@ AlienGame.prototype = {
 				this.namesLength = this.aliens[i].name.length;
 		}
 
-		this.keyFunction = document.onkeypress;
+		this.keyFunction = document.onkeydown;
 		this.keys = new Array();
 
 		var that = this;
+		document.onkeydown = function (event) {
+			event = event || window.event;
+			
+			if (event.keyCode == 8 || event.keyCode == 46) {
+				event.returnValue = false;
+			}
+		}
 		document.onkeypress = function (event) {
+			event = event || window.event;
+			
 			var c = String.fromCharCode(event.which);
 			that.keys.push(c);
 
