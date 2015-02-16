@@ -138,16 +138,19 @@ Room.prototype = {
         console.log(this.event_type)
         switch(this.event_type) {
 			case "Fire":
-        var node = document.getElementById('game')
-			  fire.start({
-          node: node,
-          callback: callback,
-          canvasWidth: node.clientWidth,
-          canvasHeight: node.clientHeight,
-          mapWidth: Math.floor(node.clientWidth / 40),
-          mapHeight: Math.floor(node.clientHeight / 40),
-          scoreToWin: 10,
-        }); 
+                var node = document.getElementById('game')
+			    fire.start({
+                    node: node,
+                    callback: callback,
+                    canvasWidth: node.clientWidth,
+                    canvasHeight: node.clientHeight,
+                    mapWidth: Math.floor(node.clientWidth / 40),
+                    mapHeight: Math.floor(node.clientHeight / 40),
+                    scoreToWin: 10,
+                    interval: 90,
+                    fireSpawnProba: 0.08,
+                    waterSpawnProba: 0.04,
+                }); 
 				break;
 			case "Alien":
 				this.g = new MiniGames("game", callback);  

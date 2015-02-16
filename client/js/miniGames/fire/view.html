@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
 
-    <link rel="stylesheet" href="./hack.css" />
+    <link rel="stylesheet" href="./fire.css" />
 
     <script src='./fire.js'></script>
 
@@ -13,21 +13,28 @@
 <body>
 
     <div id='game-container'
-        style='width:600px; height:400px; border: 0px solid; margin: 0 auto;'>
+        style='width:800px; height:600px; border: 0px solid; margin: 0 auto;'>
     </div>
 
     <script type="text/javascript">
+
+        var node = document.getElementById('game-container'),
+            callback = function() {
+                alert('you win !')
+            }
         fire.start({
-            node: document.getElementById('game-container'),
-            callback: function(){ alert('fire game ended'); },
-            canvasWidth: 800,
-            canvasHeight: 700,
-            mapWidth: 30,
-            mapWidth: 20,
-            snakeSize: 3,
-            waterStock: 3,
-            scoreToWin: 11,
-        });
+            node: node,
+            callback: callback,
+            canvasWidth: node.clientWidth,
+            canvasHeight: node.clientHeight,
+            mapWidth: Math.floor(node.clientWidth / 40),
+            mapHeight: Math.floor(node.clientHeight / 40),
+            scoreToWin: 10,
+            interval: 90,
+            fireSpawnProba: 0.08,
+            waterSpawnProba: 0.04,
+            imageFolder: './images',
+        })
     </script>
 </body>
 </html>
