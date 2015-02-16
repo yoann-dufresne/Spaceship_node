@@ -543,15 +543,17 @@ var fire = (function (){
     } while (cnt < 20 && (this.core.map.get(coord) !== null ||
       !this.core.snake.body.every(function (x){ return !x.equals(coord) })));
 
-    return coord;
+    return cnt === 20 ? null : coord;
   }
 
   Generator.prototype.generateWater = function(){
-    this.core.map.set(this.generatePosition(), new object.Water())
+    var coord = this.generatePosition()
+    coord && this.core.map.set(coord, new object.Water())
   }
 
   Generator.prototype.generateFire = function(){
-    this.core.map.set(this.generatePosition(), new object.Fire())
+    var coord = this.generatePosition()
+    coord && this.core.map.set(coord, new object.Fire())
   }
 
   // --------
@@ -593,7 +595,6 @@ var fire = (function (){
     // load the background
     this.bgImage = loadImageHelper(imageFolder + 'bg.png')
 
-
     // load the images for the water jet
     this.waterJetImages = {}
     this.waterJetImages[DirectionEnum.NORTH] = loadImageHelper(imageFolder + 'tuyeau/water-up.png')
@@ -618,7 +619,6 @@ var fire = (function (){
       , bodyNorthEast = loadImageHelper(imageFolder + 'tuyeau/arrondi-droite-haut.png')
       , bodySouthWest = loadImageHelper(imageFolder + 'tuyeau/arrondi-gauche-bas.png')
       , bodyNorthWest = loadImageHelper(imageFolder + 'tuyeau/arrondi-gauche-haut.png')
-
 
     this.bodyImages = {}
     this.bodyImages[DirectionEnum.NORTH] = {}
