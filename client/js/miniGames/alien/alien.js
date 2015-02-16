@@ -1,5 +1,5 @@
 const NB_ALIEN_PER_EVENT = 10;
-const totalTime = 30;
+const totalTime = 15;
 const maxImg = 20;
 const maxMoves = 5;
 const NAMES = ["Roger", "Paul", "Plitrik", "Jurmidov", "Mazuk", "Timoléon", "Pritonk", "Zglorg", "$#@&!ù%", "Jaipadnom", "Bulgroz", "Zorglub", "Althazor", "RémiBocquet", "Pritwook", "Khandivlop", "Basshunter", '"); -- ', "Rhibox", "TotoLeHaricot", "Razhul", "Ruffux", "Grosmehz", "Sanchez", "Ramirez", "Thuiong", "Popopoy", "Yopopop","Mantarik","Rakatakata","FlortZ","Yarkixu","Xiwouku","MohamedAlien","kytria","Traomister","Gnorkol","DzaLaKrte","jeVpRdre","Mouahaha","Gorukudrik","Krofniam","rRrRrRr","Thymnokur","Ertko","Gtaloy","Zafalisto","Rfarokàé","Typhirinux",")-O-(","123465789","Ztheurx"];
@@ -27,6 +27,7 @@ function AlienGame (frameId, callback, json) {
 	}
 
 	this.time = totalTime;
+	this.init();
 }
 
 AlienGame.prototype = {
@@ -34,7 +35,7 @@ AlienGame.prototype = {
 	init : function () {
 		// Doors on the top
 		var doors = document.createElement("img");
-		doors.src = "salle_alien_up.png";
+		doors.src = "js/miniGames/alien/salle_alien_up.png";
 		doors.id = "doors";
 		this.frame.appendChild(doors);
 		
@@ -182,10 +183,10 @@ function Alien (name) {
 	this.name = name;
 
 	var idx = Math.ceil(Math.random()*maxImg);
-	this.img = "images/alien" + idx + ".png";
+	this.img = "js/miniGames/alien/images/alien" + idx + ".png";
 }
 
 
 //var json = '[{"id":1,"name":"RémiBocquet","img":"images/alien14.png"},{"id":2,"name":"Jurmidov","img":"images/alien3.png"},{"id":3,"name":"Typhirinux","img":"images/alien19.png"},{"id":4,"name":"Rakatakata","img":"images/alien13.png"},{"id":6,"name":"MohamedAlien","img":"images/alien5.png"},{"id":7,"name":"Thymnokur","img":"images/alien5.png"}]';
-var ag = new AlienGame("frame", function(json) {alert(json)});
-ag.init();
+//var ag = new AlienGame("frame", function(json) {alert(json)});
+
