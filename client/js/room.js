@@ -159,9 +159,9 @@ Room.prototype = {
                     canvasHeight: node.clientHeight,
                     mapWidth: Math.floor(node.clientWidth / 40),
                     mapHeight: Math.floor(node.clientHeight / 40),
-                    scoreToWin: 10,
+                    scoreToWin: Math.floor(5+Math.random()*6),
                     interval: 90,
-                    fireSpawnProba: 0.08,
+                    fireSpawnProba: 0.06,
                     waterSpawnProba: 0.04,
                 }); 
 				break;
