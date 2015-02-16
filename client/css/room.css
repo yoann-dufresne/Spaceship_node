@@ -10,7 +10,7 @@ body{
     width:50%;
     left:25%;
     background:white;
-    z-index:100;
+    z-index:200;
 }
 
 #background{
@@ -27,7 +27,7 @@ body{
     width: 50%;
     top: 0px;
     left: 0px;
-    z-index:5;
+    z-index:100;
 }
 
 #door_right{
@@ -36,7 +36,7 @@ body{
     width: 56.5%;
     top: 0px;
     left: 43.5%;
-    z-index:5;
+    z-index:100;
 }
 
 #door_label{
@@ -65,7 +65,7 @@ body{
     position: absolute;
     background: black;
     width: 70%;
-    z-index: 10;
+    z-index: 110;
     color: green;
     top: 42%;
     left: 15%;
@@ -120,11 +120,11 @@ body{
 }
 
 #game{
-    width: 60%;
+    width: 80%;
     top: 30%;
     height: 60%;
     position: absolute;
-    right: 20%;
+    right: 10%;
     background : black;
     border-radius:5px;
 }
