@@ -45,7 +45,7 @@ app.get('/spaceship', function(req,res) {
 app.get('/event', function(req,res) {
     switch (req.query.command) {
         case 'solve':
-            res.send(spaceship.getEventById(req.query.event_id).solve(req.query.player_id));
+            res.send(spaceship.getEventById(req.query.event_id).solve(req.query.player_id, req.query));
             break;
     }
 })

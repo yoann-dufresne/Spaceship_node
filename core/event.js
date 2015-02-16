@@ -1,5 +1,6 @@
 module.exports.Event = Event;
 module.exports.BasicEvent = BasicEvent;
+module.exports.AlienEvent = AlienEvent;
 
  var spec = require('./spec');
 
@@ -54,6 +55,13 @@ Event.prototype = {
     
 }
 
+
+
+
+
+
+
+
 /*
  * args : type, id, spaceship
  */
@@ -64,7 +72,7 @@ function BasicEvent (args) {
     
     //select a room among available one
     var rooms = this.spaceship.getAvailableRoom();
-    
+		
     //if not enough available room for this event
     //active -> false will remove it 
     if (rooms.length < 1) {
@@ -93,4 +101,55 @@ BasicEvent.prototype.toJson = function () {
 BasicEvent.prototype.applyEffect = function () {
 	this.spaceship.room[this.room_id].changeStatus('disabled');
 	this.spaceship.room[this.room_id].available = false;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+function AlienEvent (args) {
+    Event.call(this, args);
+    
+    //select a room among available one
+    var rooms = this.spaceship.getAvailableRoom();
+    
+	if (typeof args.arg != "undefined")
+		this.arg = args.arg;
+	
+    //if not enough available room for this event
+    //active -> false will remove it 
+    if (rooms.length < 1) {
+        this.active = false;
+    }else{
+        this.room_id = rooms[Math.floor(Math.random()*rooms.length)];
+        this.applyEffect();
+    }
+}
+
+AlienEvent.prototype = Object.create(BasicEvent.prototype);
+
+AlienEvent.prototype.solve = function (player_id, query) {
+	console.log("> solve event : "+this.type);
+	
+	var json_arg = JSON.parse(decodeURIComponent(query.arg));
+	if (json_arg.length != 0) 
+		this.spaceship.addEvent(this.type, json_arg);
+	
+	this.active = false;
+}
+
+AlienEvent.prototype.toJson = function () {
+	var json = BasicEvent.prototype.toJson.call(this);
+ 
+	if (typeof this.arg != "undefined" && this.arg.length != 0)
+		json.arg = this.arg;
+
+    return json;
 }

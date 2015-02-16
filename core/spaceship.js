@@ -56,10 +56,10 @@ Spaceship.prototype = {
         this.player.push(player);
     }, 
     
-    addEvent : function (type) {
+    addEvent : function (type, arg) {
         var id = this.nextEventId;
         this.nextEventId++;
-        var event = new spec.EVENT[type].constructor({type: type, id: id, spaceship: this});
+        var event = new spec.EVENT[type].constructor({type: type, id: id, spaceship: this, arg : arg});
 
         this.event.push(event);
     }, 
