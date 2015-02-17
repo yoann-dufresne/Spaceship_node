@@ -41,11 +41,10 @@ Room.prototype = {
 					self.display_room_selector();
 
                     // Blink test
-                    if (self.data.room[4].status == "disabled")
-                        if (Math.random() <= blinkProbability)
-                            self.imgPara.style.opacity = 1;
-                        else
-                            self.imgPara.style.opacity = 0;
+                    if (self.data.room[4].status == "disabled" && Math.random() <= blinkProbability)
+                        self.imgPara.style.opacity = 1;
+                    else
+                        self.imgPara.style.opacity = 0;
 			    });
 	},
     
