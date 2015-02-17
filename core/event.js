@@ -2,7 +2,7 @@ module.exports.Event = Event;
 module.exports.BasicEvent = BasicEvent;
 module.exports.AlienEvent = AlienEvent;
 
- var spec = require('./spec');
+var spec = require('./spec');
 
 /*
  * args : type, id, spaceship
@@ -23,6 +23,7 @@ Event.prototype = {
         this.oxygen = 0;
         this.speed = 0;
         this.active = true;
+		this.start = new Date().getTime();
         
         //retrieve value in event desc file
         var oxygen = spec.EVENT[this.type].oxygen,
@@ -38,6 +39,7 @@ Event.prototype = {
     solve : function (player_id) {
 		//TODO save player_id in game log
 		console.log("> solve event : "+this.type);
+		this.stop = new Date().getTime();
         this.active = false;
     },
     
@@ -48,7 +50,9 @@ Event.prototype = {
             'type' : this.type,
             'oxygen' : this.oxygen,
             'speed' : this.speed,
-            'effect' : this.effect
+            'effect' : this.effect,
+            'start' : this.start,
+			'stop' : this.stop
         };
         return json;
     }
@@ -141,7 +145,7 @@ AlienEvent.prototype.solve = function (player_id, query) {
 	var json_arg = JSON.parse(decodeURIComponent(query.arg));
 	if (json_arg.length != 0) 
 		this.spaceship.addEvent(this.type, json_arg);
-	
+	this.stop = new Date().getTime();
 	this.active = false;
 }
 

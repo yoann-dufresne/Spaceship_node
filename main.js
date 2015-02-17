@@ -21,7 +21,7 @@ spaceship.addPlayer('Firefighter')
 //simple server for client static files (everything in /client is visible)
 var app = express();
 app.use(express.static(__dirname + '/client'));
-app.listen(process.env.PORT || 3000);
+app.listen(process.env.PORT || 80);
 
 // les commandes disponible depuis les clients a l'adresse 127.0.0.1/spaceship?command=
 app.get('/spaceship', function(req,res) {

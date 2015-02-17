@@ -23,7 +23,7 @@ EVENT = {
     
     'Alien' : {
         'type' : 'specialEvent',
-        'constructor' : e.BasicEvent,
+        'constructor' : e.AlienEvent,
         'player' : ['Marine'],
         'probability' : 1,
         'max' : 1,
