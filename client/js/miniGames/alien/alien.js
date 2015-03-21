@@ -2,7 +2,35 @@ const NB_ALIEN_PER_EVENT = 10;
 const totalTime = 15;
 const maxImg = 20;
 const maxMoves = 5;
-const NAMES = ["Roger", "Paul", "Plitrik", "Jurmidov", "Mazuk", "Timoléon", "Pritonk", "Zglorg", "$#@&!ù%", "Jaipadnom", "Bulgroz", "Zorglub", "Althazor", "RémiBocquet", "Pritwook", "Khandivlop", "Basshunter", '"); -- ', "Rhibox", "TotoLeHaricot", "Razhul", "Ruffux", "Grosmehz", "Sanchez", "Ramirez", "Thuiong", "Popopoy", "Yopopop","Mantarik","Rakatakata","FlortZ","Yarkixu","Xiwouku","MohamedAlien","kytria","Traomister","Gnorkol","DzaLaKrte","jeVpRdre","Mouahaha","Gorukudrik","Krofniam","rRrRrRr","Thymnokur","Ertko","Gtaloy","Zafalisto","Rfarokàé","Typhirinux",")-O-(","123465789","Ztheurx"];
+const NAMES = ["Roger","Paul","Plitrik","Jurmidov","Lol","WTF",
+"Mazuk","Timoleon","Pritonk","Zglorg","KZLO","Titi","Pan","ABL",
+"Jaipadnom","Bulgroz","Zorglub","Althazor","RemiBocquet","42",
+"Pritwook","Khandivlop","Basshunter","Rhibox","TotoLeHaricot", 
+"Razhul","Ruffux","Grosmehz","Sanchez","Ramirez","Clash","13",
+"Thuiong","Popopoy","Yopopop","Mantarik","Rakatakata","okay",
+"FlortZ","Yarkixu","Enzo","Lola","Xiwouku","MohamedAlien","KO",
+"kytria","Traomister","Gnorkol","Zyla","DzaLaKrte","jeVpRdre", 
+"Mouahaha","dayo","Gorukudrik","Krofniam","rRrRrRr","Thymnokur", 
+"Ertko","kenza","zelie","Gtaloy","Zafalisto","misty","Rfarokae", 
+"Typhirinux","Bob","Tomm","Aye","Ztheurx","Darkallien","Elsy", 
+"Lishool","Erzilion","Sglurmol","Evialtor","Chirolust","Lili", 
+"daukteur","KapriKsis","Hittie","Z6PO","Sai3peho","DarqVadaur", 
+"Poquemone","Spoke","Oualie","Iansollo","Dalleq","Tilque","pouf",
+"Chtoulou","Donaskul","Jesuitonper","KptN","Oudss","Alebathor", 
+"Tarh10","SpaceKevin","Ozone51","Reptili1","Faurskort","Fake",
+"Wogon","Iksouing","SauriDave","hach2jai2","Krant2","IronSkail", 
+"Ioury","Armstrong","LaiK","Metropolis","CripTonic","Calel","Alee",
+"SpoutNic","Azimauve","Lataverne","Glorkoy","Brutox","Gralien", 
+"Davrosse","HT2","Righol","Grikarte","Britonio","Bruglir","Verxcet", 
+"Wordgr","Sudy","Saracaunor","Bryt","Frogy","Rdilio","Zizons", 
+"Faliart","Cerns","Wolkt","Wordate","Hobite","Bilbao","Cobanai", 
+"Rrrorh","fasse2bou","Majosc","Hawert","Hatrewex","Lateht","Onluidi", 
+"Lemomou","Gusse","Tiopice","Metabaron","Fremen","Driolus","Vralouin", 
+"Vracra","Nabewix","Owilut","Vraliour","Melies","Magezy","Luckalien", 
+"Branicot","Partinort","Bralion","Vrulawec","VGtalien","Vraline", 
+"Vraliert","Barbibal","Melofee","bim","bam","boum","DTC","TOM",
+"Leo","Clair","BING","BANG","azert","uiop","jklm","pif","paf"];
+
 
 var alienId = 0;
 
