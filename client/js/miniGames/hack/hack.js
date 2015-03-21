@@ -38,11 +38,7 @@ var hack = (function(){
     // I do not deal with 'new' and 'this', because i think it leads to ugly code in
     // event-driven programming.
 
-    // defaultAplhabet is [a-z] (someone knows a cleaner way ?)
-    var defaultAlphabet = "";
-    for (var i = 0; i < 26; i += 1){
-        defaultAlphabet += String.fromCharCode('a'.charCodeAt(0) + i);
-    } 
+    var defaultAlphabet = "0123456789";
 
     // default size of the secret word
     var defaultSize = 4;
@@ -125,11 +121,11 @@ var hack = (function(){
     function generateSecretWord(game){
         // not secret for the moment.
         game.secret = "";
-	characters=game.alphabet;
+	var characters=game.alphabet;
         for (var i = 0; i < game.size; i += 1){
-            var randomIndex = Math.floor(Math.random() * game.alphabet.length -i);
+            var randomIndex = Math.floor(Math.random() * characters.length);
             game.secret += characters[randomIndex];
-	    characters=characters.substring(0,randomIndex)+characters.substring(randomIndex+1);
+	    characters=characters.substring(0,randomIndex) + characters.substring(randomIndex+1,characters.length);
         }
     }
 
