@@ -23,7 +23,7 @@ Event.prototype = {
         this.oxygen = 0;
         this.speed = 0;
         this.active = true;
-		this.start = new Date().getTime();
+		this.start = this.spaceship.time;
         
         //retrieve value in event desc file
         var oxygen = spec.EVENT[this.type].oxygen,
@@ -39,7 +39,7 @@ Event.prototype = {
     solve : function (player_id) {
 		//TODO save player_id in game log
 		console.log("> solve event : "+this.type);
-		this.stop = new Date().getTime();
+		this.stop = this.spaceship.time;
         this.active = false;
     },
     

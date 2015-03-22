@@ -20,7 +20,8 @@ CommandCenter.prototype = {
         this.ship = document.getElementById("ship");
 		this.goal = document.getElementById("goal");
 		this.oxygen = document.getElementById("oxygen_level");
-        
+		this.comunicate.askServer("/spaceship", {"command":"reset"});
+		
         //processing
         proc = new Processing(cc.ship, shipProc);
         proc.externals.sketch.options.isTransparent = true;
@@ -30,7 +31,7 @@ CommandCenter.prototype = {
             self.resize()
         };
 		
-		this.start();
+		this.getNames();
         this.resize();
         this.update();
 		
@@ -200,12 +201,30 @@ CommandCenter.prototype = {
     },
 	
 	checkStatus : function () {
-		if (this.data.status == 'gameOver') { 
-			$("#gameOver").css('display','block');
-			//this.end():
+		if (this.data.status == 'gameOver' || this.data.status == 'victory') { 
+			this.end();
 		}
 	},
     
+	getNames : function (){
+		var self=this;
+		document.getElementById("team").focus();
+		document.onkeypress = function (e) {
+			e = e || window.event;
+			
+			var key = e.keyCode;
+			if (key==0) key = e.which;
+				
+			if (key == 13){
+				e.preventDefault();
+				self.comunicate.askServer("/spaceship", {"command":"registerteam", "name":document.getElementById("team").value});
+				document.onkeypress = function () {};
+				$("#team_name").css('display','none');
+				self.start();
+			};
+		};
+	},
+	
     start : function(){
 		var self = this;
 		document.onkeypress = function (e) {
@@ -224,8 +243,9 @@ CommandCenter.prototype = {
     },
     
     end : function() {
+		var self = this;
         setTimeout(function(){
-            window.location.href = "result.html"
+            window.location.href = "result.html?id="+self.data.game_id;
         },2000)
     },
     

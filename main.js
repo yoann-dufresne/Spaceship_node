@@ -18,10 +18,12 @@ spaceship.addPlayer('Engineer')
 spaceship.addPlayer('Marine')
 spaceship.addPlayer('Firefighter')
 
+spaceship.addEvent("Fire")
+
 //simple server for client static files (everything in /client is visible)
 var app = express();
 app.use(express.static(__dirname + '/client'));
-app.listen(process.env.PORT || 80);
+app.listen(process.env.PORT || 8080);
 
 // les commandes disponible depuis les clients a l'adresse 127.0.0.1/spaceship?command=
 app.get('/spaceship', function(req,res) {
@@ -38,8 +40,18 @@ app.get('/spaceship', function(req,res) {
         case 'reset' :
             res.send(spaceship.reset());
             break;
+		case 'leaderBoard' :
+            res.send(spaceship.log.leaderBoard);
+            break;
+		case 'result' :
+            res.sendfile('log/game_'+req.query.game_id+'.txt');
+            break;
+		case 'registerteam' :
+            spaceship.team = req.query.name;
+            break;
     }
 })
+
 
 // les commandes disponible depuis les clients a l'adresse 127.0.0.1/event?player_id=XX&event_id=XXcommand=xxx
 app.get('/event', function(req,res) {

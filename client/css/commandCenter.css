@@ -170,11 +170,7 @@ body {
     padding-left: 8.8%;
 }
 
-#gameOver, #victory {
-	display : none;
-}
-
-#start, #gameOver, #victory {
+#start, #team_name {
     position:absolute;
     width:30%;
     top:40%;

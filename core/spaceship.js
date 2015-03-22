@@ -5,7 +5,8 @@ module.exports.Spaceship = Spaceship;
 var r = require('./room'),
     p = require('./player'),
     e = require('./event'),
-    eg = require('./eventGenerator');
+    eg = require('./eventGenerator'),
+	l = require('./log');
 
 function Spaceship() {
     console.log( "--------new spaceship---------" );
@@ -16,7 +17,7 @@ function Spaceship() {
 Spaceship.prototype = {
 
     // time left when spaceship is initialized, in seconds
-    initialTimeLeft : 240, 
+    initialTimeLeft : 10, 
     // default delay between each update() calls
     updateIntervalDelay : 1000,
     // Identify the interval in order to stop it when stop() is called
@@ -26,17 +27,20 @@ Spaceship.prototype = {
     reset : function () {
 		this.stop();
         console.log( "> reset spaceship" );
+		this.log.reset();
         this.oxygen = 100;
         this.time_left = this.initialTimeLeft;
         this.status = 'stoped';
         this.event = [];
         this.delta_oxygen = 0;
         this.current_speed = 0;
+		this.team="";
     },
     
     init : function () {
         console.log( "> init spaceship" );
         this.eventGenerator = new eg.EventGenerator(this);
+		this.log = new l.Log(this);
         this.reset();
         this.room = [];
         this.player = [];
@@ -97,12 +101,18 @@ Spaceship.prototype = {
 			if (this.oxygen > 100) this.oxygen = 100;
             this.time_left -= this.current_speed;  
             
+			this.log.update();
+			
             // the order is important and might be discuted
             if (this.oxygen < 0){
+				this.stopTime = new Date().getTime();
                 this.status = 'gameOver';
+				this.log.save()
             }
             else if (this.time_left < 0){
+				this.stopTime = new Date().getTime();
                 this.status = 'victory';
+				this.log.save()
             }
         }
     },
@@ -112,6 +122,7 @@ Spaceship.prototype = {
 		for (var i = this.event.length-1 ; i>=0; i -= 1) {
 			
 			if (!this.event[i].active) {
+				this.log.event.push(this.event[i]);
 				this.event.splice(i, 1);
 			}
 		}   
@@ -137,9 +148,11 @@ Spaceship.prototype = {
     
     // start the interval that calls update()
     start : function () {
-	console.log( "> start spaceship" );
+		console.log( "> start spaceship" );
+		this.game_id = this.log.id;
         var that = this;
         this.status = 'active';
+		this.startTime = new Date().getTime();
         this.updateIntervalID = setInterval(
             function () { that.update() }, this.updateIntervalDelay
         );
@@ -179,6 +192,7 @@ Spaceship.prototype = {
         for (var i in this.event) json_event.push(this.event[i].toJson());
         
         var json = {
+			'game_id': this.game_id,
             'status' : this.status,
             'oxygen' : this.oxygen,
             'time_left' : this.time_left,
@@ -187,7 +201,8 @@ Spaceship.prototype = {
             'room' : json_room,
             'player' : json_player,
             'event' : json_event,
-            'eventGenerator' : this.eventGenerator.toJson()
+            'eventGenerator' : this.eventGenerator.toJson(),
+			'log' : this.log.toJson()
         };
         return json;
     }
