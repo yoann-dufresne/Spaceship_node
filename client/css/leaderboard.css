@@ -1,0 +1,116 @@
+body{
+    margin : 0px;
+    padding: 0px;
+    overflow: hidden;
+    background:black;
+}
+
+#background{
+    position: absolute;
+    height:100%;
+    width:100%;
+    top:0px;
+    right:0px;
+}
+
+.img{
+    width: 100%;
+    height: 100%;
+    position:absolute;
+}
+
+#lb_title{
+    width: 80%;
+    top: 3%;
+    position: absolute;
+    right: 10%;
+    background : transparent;
+    text-align: center;
+    text-shadow: #aaa 1px 1px;
+    color: #111;
+    font-size: 10vh;
+    font-family: monospace;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+#lb_table{
+    width: 80%;
+    top: 15%;
+    height: 65%;
+    position: absolute;
+    right: 10%;
+    overflow-y : hidden;
+}
+
+#lb_footer{
+    width: 80%;
+    top: 85%;
+    position: absolute;
+    right: 10%;
+}
+
+#lb_next , #lb_new_game , #lb_previous {
+    float : left;
+    height : 100%;
+}
+
+#lb_next , #lb_previous{
+    width : 20%;
+}
+
+#lb_new_game{
+    width : 60%;
+}
+
+.lb_box{
+    background: rgba(0,0,0,0.8);
+    border-radius: 1vh; 
+    left: 2.5px;
+    right: 2.5px;
+    width: calc(100% - 5px);
+    height: 100%;
+    color: rgba(255,255,255,0.8);
+    font-family: courier;
+    font-weight: bold;
+    text-align: center;
+    font-size: 5vh;
+    display:inline-table;
+}
+
+.lb_row{
+    background: rgba(0,0,0,0.8);
+    border-radius: 1vh;
+    margin: 5px;
+    height: 20px;
+    color: rgba(255,255,255,0.8);
+    font-family: courier;
+    font-weight: bold;
+    text-align: center;
+    font-size: 20px;
+    vertical-align:middle;
+    padding:10px;
+}
+
+.lb_rank , .lb_team , .lb_status , .lb_time {
+    float : left;
+}
+
+.lb_rank{
+    width : 10%;   
+}
+
+.lb_team{
+    width : 60%;   
+	text-overflow : ellipsis;
+	overflow : hidden;
+	height : 100%;
+}
+
+.lb_status{
+    width : 20%;   
+}
+
+.lb_time{
+    width : 10%;   
+}
