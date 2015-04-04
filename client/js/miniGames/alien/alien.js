@@ -1,5 +1,6 @@
-const NB_ALIEN_PER_EVENT = 10;
-const totalTime = 15;
+const NB_ALIEN_PER_EVENT = 12;
+const totalTime = 8;
+const gameTime = 15;
 const maxImg = 20;
 const maxMoves = 5;
 const NAMES = ["Roger","Paul","Plitrik","Jurmidov","Lol","WTF",
@@ -54,6 +55,8 @@ function AlienGame (frameId, callback, json) {
 		this.aliens = eval (json);
 	}
 
+	this.alien_count = this.aliens.length;
+	
 	this.time = totalTime;
 	this.init();
 }
@@ -109,7 +112,7 @@ AlienGame.prototype = {
 					that.addAnimation(alienBlock);
 					that.setTime(alien, alienBlock);
 				},
-				decal++*2000
+				decal++*(gameTime*1000/that.alien_count)
 			);
 		});
 	},
