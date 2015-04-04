@@ -17,7 +17,7 @@ function Spaceship() {
 Spaceship.prototype = {
 
     // time left when spaceship is initialized, in seconds
-    initialTimeLeft : 10, 
+    initialTimeLeft : 240, 
     // default delay between each update() calls
     updateIntervalDelay : 1000,
     // Identify the interval in order to stop it when stop() is called
