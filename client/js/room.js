@@ -114,6 +114,12 @@ Room.prototype = {
     checkEvent : function () {
         var self=this;
         
+		var instruction = {
+			'Fire' : " f",
+			'Alien' : " a",
+			'Hack' : " h"
+		}
+		
 		this.event = -1;
 		
 		for (var i in this.data.event){
@@ -144,12 +150,13 @@ Room.prototype = {
 			
 			return
         }
-        
-        $("#room_event").html( this.data.event[this.event].type);
-        var callback = function(arg) { self.solve(arg) }//double closure ?
 
+        var callback = function(arg) { self.solve(arg) }//double closure ?
+        
+		$("#room_event").html(instruction[this.event_type]);
         switch(this.event_type) {
 			case "Fire":
+				
                 var node = document.getElementById('game')
 			    fire.start({
                     node: node,
