@@ -1,8 +1,20 @@
 
+// Smooth rendering and compatibility ...
+window.requestAnimFrame = (function(){
+  return  window.requestAnimationFrame       ||
+          window.webkitRequestAnimationFrame ||
+          window.mozRequestAnimationFrame    ||
+          function( callback ){
+            window.setTimeout(callback, 1000 / 60);
+          };
+})();
 
 var fire = (function (){
 
   var fire = {}
+
+
+
 
   // ------
   // public
@@ -21,6 +33,9 @@ var fire = (function (){
   //   - fireSpawnProba: (optional) between 0 and 1, the probability that a fire spawn at each update
   //   - waterSpawnProba: (optional) between 0 and 1, the probability that a water spawn at each update
   //   - imageFolder: (optional if inclued from client/) the path of the images folder
+  //   - waterJetBlinkingMilisec: (optional) configure the waterJet blinking.
+  //   - maxWatersNumber: (optional) the maximum waters number of the map
+  //   - maxFiresNumber: (optional) the maximum fires number of the map
   fire.start = function(options){
 
     // lookup if the image folder is custom
@@ -100,17 +115,24 @@ var fire = (function (){
   // ----------------
   // Defaults options
   // ----------------
-  const DEFAULT_SNAKE_SIZE = 5
+  const DEFAULT_SNAKE_SIZE = 8
       , DEFAULT_CANVAS_WIDTH = 600
       , DEFAULT_CANVAS_HEIGHT = 400
       , DEFAULT_MAP_WIDTH = 20
       , DEFAULT_MAP_HEIGHT = 20
-      , DEFAULT_WATER_STOCK = 3
+      , DEFAULT_WATER_STOCK = 0
       , DEFAULT_SNAKE_DIRECTION = DirectionEnum.NORTH
-      , DEFAULT_SCORE_TO_WIN = 10
-      , DEFAULT_INTERVAL = 75
-      , DEFAULT_FIRE_SPAWN_PROBA = 0.05
-      , DEFAULT_WATER_SPAWN_PROBA = 0.03
+      , DEFAULT_SCORE_TO_WIN = 5
+      , DEFAULT_INTERVAL = 150
+      , DEFAULT_FIRE_SPAWN_PROBA = 0.1
+      , DEFAULT_WATER_SPAWN_PROBA = 0.08
+      , DEFAULT_START_WATERS_NUMBER = 1
+      , DEFAULT_START_FIRES_NUMBER = 5
+      , DEFAULT_WATER_JET_BLINKING_MILISEC = 200
+      , DEFAULT_MAX_WATERS_NUMBER = 2
+      , DEFAULT_MAX_FIRES_NUMBER = 1
+
+
 
 
   // return value if value is not undefined, else default
@@ -147,16 +169,24 @@ var fire = (function (){
     this.renderer = new Renderer({
       core: this,
       width: definedElse(options.canvasWidth, DEFAULT_CANVAS_WIDTH),
-      height: definedElse(options.canvasHeight, DEFAULT_CANVAS_HEIGHT)
+      height: definedElse(options.canvasHeight, DEFAULT_CANVAS_HEIGHT),
+      waterJetBlinkingMilisec:
+        definedElse(options.waterJetBlinkingMilisec, DEFAULT_WATER_JET_BLINKING_MILISEC)
     })
 
     this.generator = new Generator({
       core: this,
       waterSpawnProba: definedElse(options.waterSpawnProba, DEFAULT_WATER_SPAWN_PROBA),
-      fireSpawnProba: definedElse(options.fireSpawnProba, DEFAULT_FIRE_SPAWN_PROBA)      
+      fireSpawnProba: definedElse(options.fireSpawnProba, DEFAULT_FIRE_SPAWN_PROBA),
+      startWatersNumber: definedElse(options.startWatersNumber, DEFAULT_START_WATERS_NUMBER),
+      startFiresNumber: definedElse(options.startFiresNumber, DEFAULT_START_FIRES_NUMBER),
+      maxWatersNumber: definedElse(options.maxWatersNumber, DEFAULT_MAX_WATERS_NUMBER),
+      maxFiresNumber: definedElse(options.maxFiresNumber, DEFAULT_MAX_FIRES_NUMBER)
     })
+    this.generator.populate()
 
     this.intervalDelay = definedElse(options.interval, DEFAULT_INTERVAL)
+    this.turbo = false
 
     // a buffer that store the last keydown event that have to be executed
     this.nextHandler = null
@@ -174,25 +204,42 @@ var fire = (function (){
       37: function() { return that.snake.turnLeft() },
       38: function() { return that.snake.turnUp() },
       39: function() { return that.snake.turnRight() },
-      40: function() { return that.snake.turnDown() }
+      40: function() { return that.snake.turnDown() },
     }
 
     window.addEventListener('keydown', function(event){
-
       if (typeof that.intervalId === 'undefined'){
         that.launch()
       }
 
+      if (event.keyCode == 17){ // ctrl
+        that.enableTurbo();
+      }
+
+      // console.log(event.keyCode)
       that.nextHandler = keydownHandlers[event.keyCode]
+    })
+
+
+    window.addEventListener('keyup', function(event){
+      if (event.keyCode == 17){ // ctrl
+        that.disableTurbo();
+      }
     })
   }
 
+
   Core.prototype.launch = function(){
-    var that = this;
+    var that = this
     this.intervalId = setInterval(function(){
       that.update()
-      that.renderer.draw()
     }, this.intervalDelay)
+
+    function animationFrameCallback(){
+      that.renderer.draw()
+      requestAnimationFrame(animationFrameCallback)
+    }
+    requestAnimationFrame(animationFrameCallback)
   }
 
   Core.prototype.update = function(){
@@ -205,7 +252,7 @@ var fire = (function (){
 
     if (this.score >= this.scoreToWin){
       this.callback()
-      clearInterval(this.intervalId)
+      clearInterval(this.intervalId);
       this.intervalId = null
     }
   }
@@ -264,6 +311,7 @@ var fire = (function (){
   Core.prototype.reset = function(){
     this.map.reset()
     this.snake.reset()
+    this.generator.populate()
 
     this.score = 0
     this.nextHandler = null
@@ -276,6 +324,27 @@ var fire = (function (){
   Core.prototype.selfContact = function(){
     this.reset()
   }
+
+  Core.prototype.enableTurbo = function(){
+    var that = this
+
+    this.turbo  = true;
+    clearInterval(this.intervalId);
+    this.intervalId = setInterval(function(){
+      that.update()
+    }, this.intervalDelay / 3)
+  }
+
+  Core.prototype.disableTurbo = function(){
+    var that = this
+
+    this.turbo  = false;
+    clearInterval(this.intervalId);
+    this.intervalId = setInterval(function(){
+      that.update()
+    }, this.intervalDelay)
+  }
+
 
   // -----
   // Snake
@@ -381,6 +450,10 @@ var fire = (function (){
     this.water = this.initialWater
   }
 
+  Snake.prototype.getWaterStock = function(){
+    return this.water
+  }
+
   // ---
   // Map
   // ---
@@ -445,6 +518,34 @@ var fire = (function (){
     }
   }
 
+  // returns statistics about the objects in the map
+  // the returned object is :
+  // { watersNumber: ..., firesNumber: ... }
+  Map.prototype.getStatistics = function(){
+    var stats = {
+      watersNumber: 0,
+      firesNumber: 0,
+    }
+
+    for (var x = 0; x < this.width; x += 1){
+      for (var y = 0; y < this.height; y += 1){
+        var obj = this.matrix[x][y];
+
+        if (obj === null){
+          continue;
+        }
+        else if (obj.type === object.Enum.WATER){
+          stats.watersNumber += 1;
+        }
+        else if (obj.type === object.Enum.FIRE){
+          stats.firesNumber += 1;
+        }
+      }
+    }
+    return stats;
+  }
+
+
   // ------
   // Object
   // ------
@@ -508,25 +609,47 @@ var fire = (function (){
   // ---------
 
   // options :
-  //  - core
+  //  - core 
   //  - waterSpawnProba
   //  - fireSpawnProba
+  //  - startWatersNumber
+  //  - maxWatersNumber
+  //  - startFiresNumber
+  //  - maxFireNumbers
+  //  - maxWatersNumbers
+
   function Generator(options){
     this.core = options.core
     this.waterSpawnProba = options.waterSpawnProba
     this.fireSpawnProba = options.fireSpawnProba
+    this.startWatersNumber = options.startWatersNumber
+    this.startFiresNumber = options.startFiresNumber
+    this.maxWatersNumber = options.maxWatersNumber 
+    this.maxFiresNumber = options.maxFiresNumber
+  }
+
+  // called when the game starts and when it "reboots" (when the snake die)
+  Generator.prototype.populate = function(){
+    for (var i = 0; i < this.startWatersNumber; i += 1){
+      this.generateWater();      
+    }
+
+    for (var i = 0; i < this.startFiresNumber; i += 1){
+      this.generateFire();      
+    }
   }
 
   // called at each update() to generate fire and water
   Generator.prototype.generate = function(){
 
     var draw = Math.random()
+      , mapStats = this.core.map.getStatistics()
 
-    if (draw < this.waterSpawnProba){
+    if (draw < this.waterSpawnProba && mapStats.watersNumber < this.maxWatersNumber){
       this.generateWater();
     }
 
-    if (draw > 1 - this.fireSpawnProba){
+    if (draw > 1 - this.fireSpawnProba && mapStats.firesNumber < this.maxFiresNumber){
       this.generateFire();
     }
   }
@@ -565,9 +688,11 @@ var fire = (function (){
   //    - core: the game core
   //    - width: width of the canvas
   //    - heigth: heigth of the canvas
+  //    - waterJetBlinkingMilisec: configure the blinking of the waterJet
   function Renderer(options){
 
     this.core = options.core
+    this.waterJetBlinkingMilisec = options.waterJetBlinkingMilisec
 
     // cells are square
     var optimalCellWidth = Math.floor(options.width / this.core.map.width)
@@ -671,11 +796,23 @@ var fire = (function (){
 
   Renderer.prototype.drawMap = function(){
 
+
+    var radian = undefined
+
+    if (this.core.snake.getWaterStock() === 0) {
+      radian = (Date.now() % 500) * (360/500) * (Math.PI/180)
+    }
+
     for (var coord = new Coord(0, 0); coord.x < this.core.map.width; coord.x += 1){
       for (coord.y = 0; coord.y < this.core.map.height; coord.y += 1){
         var obj = this.core.map.get(coord)
         if (obj !== null){
-          this.drawObject(obj, coord)
+          if (obj.type == object.Enum.FIRE){
+            this.drawObject(obj, coord, radian)
+          }
+          else {
+            this.drawObject(obj, coord, undefined)
+          }
         }
       }
     }
@@ -689,19 +826,40 @@ var fire = (function (){
     return new Coord(canvasX, canvasY)    
   }
 
-  Renderer.prototype.drawObject = function (obj, coord){
+  // radian is optional and allows to draw rotated objects
+  Renderer.prototype.drawObject = function (obj, coord, radian){
+
 
     var canvasCoord = this.mapToCanvasCoord(coord);
 
+    // old pixelized version: 
     // this.context.fillStyle = obj.color
     // this.context.fillRect(canvasCoord.x, canvasCoord.y, this.cellSize, this.cellSize)
 
-    this.context.drawImage(obj.imageObj, canvasCoord.x, canvasCoord.y, this.cellSize, this.cellSize)
+    if (radian){
+      this.context.save()
+      this.context.translate(
+        canvasCoord.x + obj.imageObj.width/2,
+        canvasCoord.y + obj.imageObj.height/2)
+      this.context.rotate(radian);
+      this.context.drawImage(
+        obj.imageObj, -obj.imageObj.width/2, -obj.imageObj.height/2,
+        this.cellSize, this.cellSize)
+      this.context.restore();
+    }
+    else {
+      this.context.drawImage(obj.imageObj, canvasCoord.x, canvasCoord.y, this.cellSize, this.cellSize)
+    }
+
   }
 
   Renderer.prototype.drawSnake = function(){
     this.drawSnakeBody()
-    this.drawWaterJet()
+
+    // the waterJet blinks
+    if (Date.now() % this.waterJetBlinkingMilisec < this.waterJetBlinkingMilisec / 2){
+      this.drawWaterJet()
+    }
   }
 
   // colors of the snake
