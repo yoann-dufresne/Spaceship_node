@@ -115,7 +115,7 @@ Room.prototype = {
         var self=this;
         
 		var instruction = {
-			'Fire' : " Guide la lance à incendie avec les flèches du clavier pour récupérer les seaux et éteindre les incendies. ",
+			'Fire' : " Guide la lance à incendie avec les flèches du clavier pour récupérer les seaux et éteindre les incendies. Maintenir CTRL pour accélérer. ",
 			'Alien' : " Tue les Aliens en tapant leurs noms sans faute. ",
 			'Hack' : " Trouve le code secret de 4 chiffres et communique le au Command-Center. Vert chiffre bien placé. Orange chiffre présent mal placé. Rouge chiffre absent. "
 		}
@@ -165,10 +165,6 @@ Room.prototype = {
                     canvasHeight: node.clientHeight,
                     mapWidth: Math.floor(node.clientWidth / 40),
                     mapHeight: Math.floor(node.clientHeight / 40),
-                    scoreToWin: Math.floor(5+Math.random()*6),
-                    interval: 90,
-                    fireSpawnProba: 0.06,
-                    waterSpawnProba: 0.04,
                 }); 
 				break;
 			case "Alien":
