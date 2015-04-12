@@ -56,29 +56,31 @@ Result.prototype = {
         var canvas = document.getElementById("canvas");
         var proc = new Processing(canvas, graphProc);
         proc.externals.sketch.options.isTransparent = true;
-        /*
+        
         var delta = this.data.time;
-        console.log(delta)
-        for (var key in this.data.rooms){
+        
+		var room = {};
+        for (var key in this.data.room){
             var div = jQuery('<div/>', {
-                html: this.result.rooms[key].name,
+                html: this.data.room[key].type,
                 class: 'room_stat'
             })
             
-            for (key2 in this.data.rooms[key].events){
-                var event = this.data.rooms[key].events[key2]
-                var start = (((event.start - this.stat.start)/delta).toFixed(3))*100
-                var stop = 100
-                if (typeof event.stop != "undefined") stop = (((event.stop - this.stat.start)/delta).toFixed(3))*100
-                jQuery('<div/>', {
-                    style: 'width : '+(stop-start)+"%"+'; left : '+start+"%"+'; background-color : '+event_def[event.name].color,
-                    class: 'event_bar'
-                })
-                .appendTo(div)
-            }
+			room[this.data.room[key].id]=div;
             div.appendTo("#stats")
         }
-        */
+        
+		for (key in this.data.event){
+			var event = this.data.event[key]
+			var start = (((event.start)/delta).toFixed(3))*100
+			var stop = (((event.stop)/delta).toFixed(3))*100
+			jQuery('<div/>', {
+				style: 'width : '+(stop-start)+"%"+'; left : '+start+"%"+'; background-color : '+EVENT[event.type].color,
+				class: 'event_bar'
+			})
+			.appendTo(room[event.room_id])
+		}
+        
     }
 }
 
