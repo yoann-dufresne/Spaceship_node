@@ -107,11 +107,13 @@ Spaceship.prototype = {
             if (this.oxygen < 0){
 				this.stopTime = new Date().getTime();
                 this.status = 'gameOver';
+				for (var i=0; i<this.event.length; i++) this.event[i].solve();
 				this.log.save()
             }
             else if (this.time_left < 0){
 				this.stopTime = new Date().getTime();
                 this.status = 'victory';
+				for (var i=0; i<this.event.length; i++) this.event[i].solve();
 				this.log.save()
             }
         }

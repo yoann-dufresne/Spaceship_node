@@ -56,8 +56,10 @@ Log.prototype = {
 	},
 	
 	save : function () {
+		this.spaceship.updateEvents();
 		var win = false;
 		if (this.spaceship.status=="victory") win = true;
+		
 		var game = {
 			'time' : this.time,
 			'win' : win,
@@ -77,6 +79,8 @@ Log.prototype = {
 		}
 		game2.event = [];
 		for (var i in this.event) game2.event[i] = this.event[i].toJson();	
+		
+		game2.room = this.spaceship.room;
 
 		console.log("save file : log/game_"+this.id+".txt")
 		fs.writeFile('log/game_'+this.id+'.txt', JSON.stringify(game2) ,function(err,data) {});
