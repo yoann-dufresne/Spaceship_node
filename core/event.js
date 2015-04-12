@@ -23,7 +23,7 @@ Event.prototype = {
         this.oxygen = 0;
         this.speed = 0;
         this.active = true;
-		this.start = this.spaceship.time;
+		this.start = this.spaceship.log.time;
         
         //retrieve value in event desc file
         var oxygen = spec.EVENT[this.type].oxygen,
@@ -39,8 +39,8 @@ Event.prototype = {
     solve : function (player_id) {
 		//TODO save player_id in game log
 		console.log("> solve event : "+this.type);
-		this.stop = this.spaceship.time;
-        this.active = false;
+		this.active = false;
+		this.stop = this.spaceship.log.time;
     },
     
     // toJson() doesn't not return json string, but jsonable object.
@@ -52,6 +52,8 @@ Event.prototype = {
             'speed' : this.speed,
             'effect' : this.effect,
             'start' : this.start,
+			'room_id': this.room_id,
+			'active': this.active,
 			'stop' : this.stop
         };
         return json;
@@ -141,12 +143,13 @@ AlienEvent.prototype = Object.create(BasicEvent.prototype);
 
 AlienEvent.prototype.solve = function (player_id, query) {
 	console.log("> solve event : "+this.type);
-	
-	var json_arg = JSON.parse(decodeURIComponent(query.arg));
-	if (json_arg.length != 0) 
-		this.spaceship.addEvent(this.type, json_arg);
-	this.stop = new Date().getTime();
+	if (typeof query != 'undefined'){
+		var json_arg = JSON.parse(decodeURIComponent(query.arg));
+		if (json_arg.length != 0) 
+			this.spaceship.addEvent(this.type, json_arg);
+	}
 	this.active = false;
+	this.stop = this.spaceship.log.time;
 }
 
 AlienEvent.prototype.toJson = function () {
