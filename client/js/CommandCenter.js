@@ -35,6 +35,10 @@ CommandCenter.prototype = {
         this.resize();
         this.update();
 		
+		//processing
+        proc = new Processing(cc.ship, shipProc);
+        proc.externals.sketch.options.isTransparent = true;
+		
 		setInterval(function(){self.update()}, 1000);
 	},
 	
@@ -193,9 +197,10 @@ CommandCenter.prototype = {
 			var room_id = this.data.event[i].room_id;
 			var type = this.data.event[i].type;
 			var r = this.rooms[room_id]
-			
-			r.event_icon.style.background = EVENT[type].color
-			r.event_name.innerHTML = type
+			if (typeof r != 'undefined'){
+				r.event_icon.style.background = EVENT[type].color
+				r.event_name.innerHTML = type
+			}
 		}
 		
     },
@@ -269,25 +274,28 @@ function shipProc(p) {
     }
     
     p.draw = function() {
-        p.background(0,0,0,0)
-        p.width = cc.ship_width
-        p.height = cc.ship_height
-        p.size(p.width, p.height);
-        
-        var i=0
-        for (var i in cc.data.room) {
-            var isBroken = false;
-            if (cc.data.room[i].status == 'disabled') isBroken = true;
-            
-            var start = - (Math.PI*2) * ( (parseFloat(i)+1)/cc.rooms.length ) + Math.PI/2;
-            var stop = - (Math.PI*2) * ( (parseFloat(i))/cc.rooms.length ) + Math.PI/2;
-            
-            p.strokeWeight(2);
-            p.stroke(255,255,255,100);
-            p.drawSegment(start,stop,isBroken);
-            i++;
-        }
-        
+		p.background(0,0,0,0)
+		if ( (typeof cc.data != 'undefined') && (cc.data.status!="stoped") ){
+			
+			p.width = cc.ship_width
+			p.height = cc.ship_height
+			p.size(p.width, p.height);
+			
+			var i=0
+			
+			for (var i in cc.data.room) {
+				var isBroken = false;
+				if (cc.data.room[i].status == 'disabled') isBroken = true;
+				
+				var start = - (Math.PI*2) * ( (parseFloat(i)+1)/cc.rooms.length ) + Math.PI/2;
+				var stop = - (Math.PI*2) * ( (parseFloat(i))/cc.rooms.length ) + Math.PI/2;
+				
+				p.strokeWeight(2);
+				p.stroke(255,255,255,100);
+				p.drawSegment(start,stop,isBroken);
+				i++;
+			}
+		}
         
     };
     
