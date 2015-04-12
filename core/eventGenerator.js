@@ -41,6 +41,29 @@ EventGenerator.prototype = {
             if ( (typeof max != 'undefined') & (count >= max) ) value = 0;
             
             this.proba[event].value = value/spec.EVENT_DENOMINATOR;
+			
+			var current_events = this.spaceship.event.length
+			
+			switch(current_events) {
+				case 5:
+					this.proba[event].value = 0; 
+				break;
+				case 4:
+					this.proba[event].value *= 0.25; 
+				break;
+				case 3:
+					this.proba[event].value *= 1; 
+				break;
+				case 2:
+					this.proba[event].value *= 1.5; 
+				break;
+				case 1:
+					this.proba[event].value *= 1.75; 
+				break;
+				case 0:
+					this.proba[event].value *= 5; 
+				break;
+			}
         };
     },
     
