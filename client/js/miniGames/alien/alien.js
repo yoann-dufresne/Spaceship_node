@@ -1,4 +1,4 @@
-const NB_ALIEN_PER_EVENT = 12;
+const NB_ALIEN_PER_EVENT = 10;
 const totalTime = 8;
 const gameTime = 15;
 const maxImg = 20;
