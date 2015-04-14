@@ -163,8 +163,8 @@ Room.prototype = {
                     callback: callback,
                     canvasWidth: node.clientWidth,
                     canvasHeight: node.clientHeight,
-                    mapWidth: Math.floor(node.clientWidth / 40),
-                    mapHeight: Math.floor(node.clientHeight / 40),
+                    mapWidth: Math.floor(node.clientWidth / 50),
+                    mapHeight: Math.floor(node.clientHeight / 50),
                 }); 
 				break;
 			case "Alien":
