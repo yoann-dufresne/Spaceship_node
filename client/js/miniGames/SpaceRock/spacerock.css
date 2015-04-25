@@ -1,0 +1,8 @@
+#jeu {    
+    display : block;
+    margin : auto;
+    background-image: url("images/ciel.png");
+    background-size: cover;
+    background-position : 0px 0px;
+}
+
