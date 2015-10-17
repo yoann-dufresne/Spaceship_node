@@ -41,7 +41,7 @@ var hack = (function(){
     var defaultAlphabet = "0123456789";
 
     // default size of the secret word
-    var defaultSize = 4;
+    var defaultSize = 3;
 
     // create a new game object, options properties are same as hack.start()
     function create (options){
@@ -245,8 +245,7 @@ var hack = (function(){
         var row = document.createElement('tr');
         row.innerHTML = rowInnerHTML;
 
-        game.tableElement.insertBefore(row, game.tableElement.childNodes[2]);
-
+        game.tableElement.appendChild(row);
 
         if (game.secret === statement){
             statementMatches(game);
