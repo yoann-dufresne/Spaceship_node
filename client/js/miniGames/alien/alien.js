@@ -70,10 +70,13 @@ AlienGame.prototype = {
 		doors.id = "doors";
 		this.frame.appendChild(doors);
 		
-		// Add user text	
+		// Add user text
 		this.p = document.createElement("p");
 		this.p.id = "alienText";
 		this.frame.appendChild(this.p);
+
+		// Allowing backspace
+		this.backspaceAllowed = true;
 
 		this.createDivs();
 		this.listen();
@@ -167,16 +170,21 @@ AlienGame.prototype = {
 			
 			if (event.keyCode == 8 || event.keyCode == 46) {
 				event.returnValue = false;
+				if (event.keyCode == 8)
+					document.onkeypress (null)
 			}
 		}
 		document.onkeypress = function (event) {
-			event = event || window.event;
-			
-			var c = String.fromCharCode(event.which);
-			that.keys.push(c);
+			if (event != null) {
+				event = event || window.event;
+				
+				var c = String.fromCharCode(event.which);
+				that.keys.push(c);
 
-			if (that.keys.length > that.namesLength)
-				that.keys.shift();
+				if (that.keys.length > that.namesLength+10)
+					that.keys.shift();
+			} else if (that.backspaceAllowed)
+				that.keys.pop(c);
 			
 			// Creation of the name
 			var txt = "";
