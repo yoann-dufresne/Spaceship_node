@@ -12,3 +12,5 @@ client/js/lib/download_lib.sh
 client/js/lib/download_lib.sh
 
 client/js/lib/download_lib.sh
+
+*.txt

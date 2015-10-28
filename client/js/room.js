@@ -73,15 +73,6 @@ Room.prototype = {
         $("#room_name").html(this.data.room[this.roomID].type)
     },
 
-	/*
-    update : function(){
-		var self = this;
-		if (typeof spaceship.data.rooms[this.roomID].event != 'undefined'){
-			if (this.event_solved.indexOf(spaceship.data.rooms[this.roomID].event.start) != -1){ this.solve() }
-		}
-    },
-    */
-
     //ouvre la porte
     open : function() {
         var self=this;

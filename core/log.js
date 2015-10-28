@@ -52,7 +52,10 @@ Log.prototype = {
 	},
 	
 	saveLeaderBoard : function () {
-		fs.writeFile('log/leaderBoard.txt', JSON.stringify(this.leaderBoard, 2) ,function(err,data) {});
+		if (!fs.exists('log/'))
+			fs.mkdir('log/', function () {
+			fs.writeFile('log/leaderBoard.txt', JSON.stringify(this.leaderBoard, 2) ,function(err,data) {});
+		});
 	},
 	
 	save : function () {
