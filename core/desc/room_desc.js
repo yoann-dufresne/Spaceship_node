@@ -8,7 +8,7 @@ ROOM = {
                 'oxygen' : 1
             },
             'disabled' : {
-                'oxygen' : -1
+                'oxygen' : 0
             }
         }
     },

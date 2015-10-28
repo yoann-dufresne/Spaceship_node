@@ -115,9 +115,9 @@ Room.prototype = {
         var self=this;
 
 		var instruction = {
-			'Fire' : " Guide la lance à incendie avec les flèches du clavier pour récupérer les seaux et éteindre les incendies. Maintenir CTRL pour accélérer. ",
-			'Alien' : " Tue les Aliens en tapant leurs noms sans faute. ",
-			'Hack' : " Trouve le code secret de 4 chiffres et communique le au Command-Center. Vert chiffre bien placé. Orange chiffre présent mal placé. Rouge chiffre absent. "
+			'Fire' : " Guide la lance à incendie avec les flèches du clavier pour éteindre les feux. Maintenir CTRL pour accélérer. ",
+			'Alien' : " Tue les Aliens en tapant leurs noms sans faute. Possibilité d'effacer. ",
+			'Hack' : " Trouve le code secret de 3 chiffres : Vert chiffre bien placé. Orange chiffre présent mal placé. Rouge chiffre absent. "
 		}
 
 		this.event = -1;

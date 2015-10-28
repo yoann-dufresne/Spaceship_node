@@ -17,7 +17,7 @@ EVENT = {
         'player' : ['Firefighter'],
         'oxygen' : -1,
         'probability' : 1,
-        'max' : 2,
+        'max' : 1,
 		'color' : 'red'
     },
     
