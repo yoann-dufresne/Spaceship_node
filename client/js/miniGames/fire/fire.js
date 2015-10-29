@@ -48,7 +48,7 @@ var fire = (function (){
 
     var core = new Core(options)
 
-    core.renderer.draw()
+    setTimeout(function(){ core.launch() }, 1000);
   }
 
   // -------
@@ -208,10 +208,6 @@ var fire = (function (){
     }
 
     window.addEventListener('keydown', function(event){
-      if (typeof that.intervalId === 'undefined'){
-        that.launch()
-      }
-
       if (event.keyCode == 17){ // ctrl
         that.enableTurbo();
       }
