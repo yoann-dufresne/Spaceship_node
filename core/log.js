@@ -51,11 +51,8 @@ Log.prototype = {
 		
 	},
 	
-	saveLeaderBoard : function () {
-		if (!fs.exists('log/'))
-			fs.mkdir('log/', function () {
-			fs.writeFile('log/leaderBoard.txt', JSON.stringify(this.leaderBoard, 2) ,function(err,data) {});
-		});
+	saveLeaderBoard : function (json) {
+		fs.writeFile('log/leaderBoard.txt', ''+json ,function(err,data) {});
 	},
 	
 	save : function () {
@@ -70,9 +67,26 @@ Log.prototype = {
 			'id' : this.id
 		}
 		this.leaderBoard.push(game);
-		this.saveLeaderBoard();
-		
-		var game2 = {
+
+		var json = JSON.stringify(this.leaderBoard, 2);
+		if (!fs.exists('log/')) {
+			var that = this;
+			fs.mkdir('log/', function () {
+				that.saveLeaderBoard(''+json);
+				that.saveTeam();
+			});
+		} else {
+			this.saveLeaderBoard(''+json);
+			this.saveTeam();
+		}
+
+	},
+
+	saveTeam : function () {
+		var win = false;
+		if (this.spaceship.status=="victory") win = true;
+
+		var game = {
 			'time' : this.time,
 			'win' : win,
 			'names' : [this.spaceship.team],
@@ -80,13 +94,13 @@ Log.prototype = {
 			'time_left' : this.time_left,
 			'oxygen' : this.oxygen
 		}
-		game2.event = [];
-		for (var i in this.event) game2.event[i] = this.event[i].toJson();	
+		game.event = [];
+		for (var i in this.event) game.event[i] = this.event[i].toJson();	
 		
-		game2.room = this.spaceship.room;
+		game.room = this.spaceship.room;
 
 		console.log("save file : log/game_"+this.id+".txt")
-		fs.writeFile('log/game_'+this.id+'.txt', JSON.stringify(game2) ,function(err,data) {});
+		fs.writeFile('log/game_'+this.id+'.txt', JSON.stringify(game) ,function(err,data) {});
 		
 		this.id++;
 		console.log("next_id : " + this.id)

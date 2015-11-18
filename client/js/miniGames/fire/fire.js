@@ -48,7 +48,7 @@ var fire = (function (){
 
     var core = new Core(options)
 
-    core.renderer.draw()
+    setTimeout(function(){ core.launch() }, 1000);
   }
 
   // -------
@@ -208,13 +208,9 @@ var fire = (function (){
     }
 
     window.addEventListener('keydown', function(event){
-      if (typeof that.intervalId === 'undefined'){
-        that.launch()
-      }
-
-      if (event.keyCode == 17){ // ctrl
-        that.enableTurbo();
-      }
+      // if (event.keyCode == 17){ // ctrl
+      //   that.enableTurbo();
+      // }
 
       // console.log(event.keyCode)
       that.nextHandler = keydownHandlers[event.keyCode]
@@ -222,9 +218,9 @@ var fire = (function (){
 
 
     window.addEventListener('keyup', function(event){
-      if (event.keyCode == 17){ // ctrl
-        that.disableTurbo();
-      }
+      // if (event.keyCode == 17){ // ctrl
+      //   that.disableTurbo();
+      // }
     })
   }
 
